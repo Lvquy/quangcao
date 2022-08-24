@@ -1,0 +1,15 @@
+<odoo>
+    <template id="product_quantity" inherit_id="website_sale.product" customize_show="True" name="Hide add to cart">
+        <xpath expr="//div[hasclass('js_main_product')]" position="replace">
+            <h3 class="text-success">
+                Gọi Hotline để nhận báo giá
+            </h3>
+        </xpath>
+    </template>
+
+    <template id="hide_cart" inherit_id="website_sale.header_cart_link" customize_show="True" name="Hide cart">
+        <xpath expr="//a" position="replace">
+
+        </xpath>
+    </template>
+</odoo>
