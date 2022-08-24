@@ -16,6 +16,7 @@
         # views
         'views/hide_add_to_cart_btn.xml',
         'views/team.xml',
+        'views/custom_footer.xml',
         #template
         # menu
         # report
