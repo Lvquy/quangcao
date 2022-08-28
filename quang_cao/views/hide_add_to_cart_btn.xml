@@ -9,7 +9,6 @@
 
     <template id="hide_cart" inherit_id="website_sale.header_cart_link" customize_show="True" name="Hide cart">
         <xpath expr="//a" position="replace">
-
         </xpath>
     </template>
 </odoo>

@@ -1,0 +1,18 @@
+.o_navbar_apps_menu .dropdown-menu{
+background: url(/web_responsive/static/src/components/apps_menu/../../img/home-menu-bg-overlay.svg), linear-gradient(to bottom, #19c4d5, #b0adba);
+}
+
+.o_main_navbar{
+    background-color: #19c4d5;
+    border-bottom: 2px solid #5a4f7f;
+}
+
+.btn-fill-primary, .btn-primary {
+    color: #fff;
+    background-color: #19c4d5;
+    border-color: #71639e;
+}
+
+.o_form_view .o_form_statusbar > .o_statusbar_status > .o_arrow_button.btn-primary.disabled{
+    background-color: #19c4d5;
+}

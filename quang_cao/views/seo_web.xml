@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="seo_web_form" model="ir.ui.view">
+            <field name="name">seo.web.form</field>
+            <field name="model">seo.web</field>
+            <field name="arch" type="xml">
+                <form string="Danh sách">
+                    <header>
+                            <field name="state" widget="statusbar" statusbar_visible="0,1"/>
+                            <button name="confirm" string="Confirm" type="object" attrs="{'invisible':[('state', 'in', ('1'))]}"/>
+                            <button name="done" string="Done" type="object" attrs="{'invisible':[('state', 'in', ('0','2'))]}"/>
+                            <button name="check_ranking" string="Update ranking" type="object"/>
+                            <button name="create_log" string="create log" type="object"/>
+                        </header>
+                    <sheet>
+                        <group string="SEO">
+                            <group>
+                                <field name="name" attrs="{'readonly':[('state', 'in', ('1'))]}"/>
+                                <field name="website" attrs="{'readonly':[('state', 'in', ('1'))]}"/>
+                                <field name="start_date" attrs="{'readonly':[('state', 'in', ('1'))]}"/>
+                                <field name="end_date" attrs="{'readonly':[('state', 'in', ('1'))]}"/>
+                            </group>
+                            <group>
+                                <field name="target_domain"/>
+                                <field name="page"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="keywords" string="Danh sách từ khóa">
+                                <field name="keywords"/>
+                            </page>
+                            <page name="nguoi_tham_gia" string="Người tham gia">
+                                <field name="nguoi_tham_gia"/>
+                            </page>
+                        </notebook>
+                        <field name="note"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="seo_web_tree" model="ir.ui.view">
+            <field name="name">seo.web.tree</field>
+            <field name="model">seo.web</field>
+            <field name="arch" type="xml">
+                <tree string="Danh sách">
+                    <field name="name" optional="show"/>
+                    <field name="website" optional="show"/>
+                    <field name="start_date" optional="show"/>
+                    <field name="end_date" optional="show"/>
+                    <field name="nguoi_tham_gia" optional="show"/>
+                    <field name="keywords" optional="show"/>
+                    <field name="state" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="list_keyword_tree" model="ir.ui.view">
+            <field name="name">list.keyword.tree</field>
+            <field name="model">list.keyword</field>
+            <field name="arch" type="xml">
+                <tree string="Danh sách" editable="bottom" >
+                    <field name="name" optional="show"/>
+                    <field name="search_count_pm" optional="show"/>
+                    <field name="canh_tranh" optional="show" decoration-success="canh_tranh=='0'" decoration-danger="canh_tranh=='2'"/>
+                    <field name="thu_hang" optional="show" decoration-success="thu_hang&lt;=10" decoration-danger="thu_hang &gt;= 20"/>
+                    <field name="old_rank" optional="show"/>
+                    <field name="date_update" optional="show"/>
+                    <button name="view_blog" string="View blog" type="object" class="btn btn-primary"/>
+                    <field name="target_domain" optional="show"/>
+                    <field name="du_an" optional="show"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_view_list_keyword" model="ir.actions.act_window">
+            <field name="name">Danh sách</field>
+            <field name="res_model">list.keyword</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new ...
+                </p>
+            </field>
+        </record>
+
+        <!-- action view-->
+        <record id="action_view_seo_web" model="ir.actions.act_window">
+            <field name="name">Danh sách</field>
+            <field name="res_model">seo.web</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new ...
+                </p>
+            </field>
+        </record>
+        <menuitem id="menu_seo_web" name="SEO Google" sequence="1"
+              web_icon="quang_cao,static/src/img/seo.png" groups="base.group_user,base.group_system"/>
+        <menuitem id="menu_sub_seo_web" name="Danh sách" parent="menu_seo_web" action="action_view_seo_web"
+              sequence="1" groups="base.group_user,base.group_system"/>
+
+        <menuitem id="menu_sub_list_keyword" name="Danh sách từ khóa" parent="menu_seo_web" action="action_view_list_keyword"
+              sequence="1" groups="base.group_system,base.group_user"/>
+    </data>
+</odoo>

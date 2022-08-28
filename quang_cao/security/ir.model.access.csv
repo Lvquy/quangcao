@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_quang_cao_seo_web_user,seo.web.user,model_seo_web,base.group_user,1,1,1,1
+access_quang_cao_seo_web_root,seo.web.root,model_seo_web,base.group_system,1,1,1,1
+
+access_quang_cao_list_keyword_user,list.keyword.user,model_list_keyword,base.group_user,1,1,1,1
+access_quang_cao_list_keyword_root,list.keyword.root,model_list_keyword,base.group_system,1,1,1,1
+
+access_quang_cao_log_ranking_user,log.ranking.user,model_log_ranking,base.group_user,1,1,1,1
+access_quang_cao_log_ranking_root,log.ranking.root,model_log_ranking,base.group_system,1,1,1,1
+
+
+access_quang_cao_key_list_log_user,key.list.log.user,model_key_list_log,base.group_user,1,1,1,1
+access_quang_cao_key_list_log_root,key.list.log.root,model_key_list_log,base.group_system,1,1,1,1

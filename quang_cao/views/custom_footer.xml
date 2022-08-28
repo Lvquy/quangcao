@@ -2,7 +2,11 @@
 <odoo>
     <template id="website_sale.brand_promotion" inherit_id="website.brand_promotion">
         <xpath expr="//t[@t-call='web.brand_promotion_message']" position="replace">
-            <img t-att-src="'/quang_cao/static/src/img/logo-quang-cao-truong-phat.png'" alt="Logo Cty quảng cáo Trường Phát" width="80"/>
+
+            <span>
+                <a href="https://quangcaotp.com" target="_blank">https://quangcaotp.com</a> -
+            </span>
+            <img t-att-src="'/quang_cao/static/src/img/logo-quang-cao-truong-phat.png'" alt="Logo Cty quảng cáo Trường Phát" width="50"/>
         </xpath>
     </template>
 </odoo>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="log_ranking_form" model="ir.ui.view">
+            <field name="name">log.ranking.form</field>
+            <field name="model">log.ranking</field>
+            <field name="arch" type="xml">
+                <form string="Danh sách">
+                    <sheet>
+                        <group string="LOG">
+                            <group>
+                                <field name="date_ranking"/>
+                                <field name="project_of"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="keyword_list" string="Keyword List">
+                                <field name="keyword_list"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="log_ranking_tree" model="ir.ui.view">
+            <field name="name">log.ranking.tree</field>
+            <field name="model">log.ranking</field>
+            <field name="arch" type="xml">
+                <tree string="Danh sách" >
+                    <field name="date_ranking" optional="show"/>
+                    <field name="project_of" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="key_list_log_tree" model="ir.ui.view">
+            <field name="name">key.list.log.tree</field>
+            <field name="model">key.list.log</field>
+            <field name="arch" type="xml">
+                <tree string="Danh sách" editable="bottom">
+                    <field name="name" optional="show"/>
+                    <field name="ranking" optional="show"/>
+                    <field name="ref_log_ranking" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- action view-->
+        <record id="action_view_log_ranking" model="ir.actions.act_window">
+            <field name="name">Lịch sử ranking</field>
+            <field name="res_model">log.ranking</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new ...
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_sub_log_ranking" name="Lịch sử thứ hạng" parent="menu_seo_web" action="action_view_log_ranking"
+              sequence="3" groups="base.group_system,base.group_user"/>
+    </data>
+</odoo>
+
