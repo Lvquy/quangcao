@@ -4,7 +4,10 @@
         <xpath expr="//t[@t-call='web.brand_promotion_message']" position="replace">
 
             <span>
-                <a href="https://bienquangcaotruongphat.com" target="_blank">https://bienquangcaotruongphat.com</a> -
+                <a href="https://bienquangcaotruongphat.com" target="_blank">bienquangcaotruongphat.com</a> -
+            </span>
+            <span>
+                <a href="https://bienquangcaotruongphat.vn" target="_blank">bienquangcaotruongphat.vn</a> -
             </span>
             <img t-att-src="'/quang_cao/static/src/img/logo-quang-cao-truong-phat.png'" alt="Logo Cty quảng cáo Trường Phát" width="50"/>
         </xpath>
