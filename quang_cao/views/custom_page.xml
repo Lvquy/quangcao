@@ -5,14 +5,14 @@
             <field name="name">Bảng giá</field>
             <field name="url">/bang-gia-bien-quang-cao</field>
             <field name="parent_id" ref="website.main_menu"/>
-            <field name="sequence" type="int">10</field>
+            <field name="sequence" type="int">20</field>
         </record>
 
         <record id="menu_xem_nhanh" model="website.menu">
             <field name="name">Xem nhanh</field>
             <field name="is_mega_menu"></field>
             <field name="parent_id" ref="website.main_menu"/>
-            <field name="sequence" type="int">11</field>
+            <field name="sequence" type="int">21</field>
         </record>
     </data>
     <template id="team" name="Team Us">
