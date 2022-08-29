@@ -26,6 +26,6 @@ class QuangCao(http.Controller):
 
 
     @http.route(['/bang-gia-bien-quang-cao'], auth='public', website=True)
-    def bien_quang_cao_dep(self, **kw):
+    def bang_gia(self, **kw):
 
         return request.render('quang_cao.bang_gia_bien_quang_cao')
