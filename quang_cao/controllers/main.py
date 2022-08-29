@@ -14,12 +14,18 @@ class QuangCao(http.Controller):
 
         return request.render('quang_cao.team')
 
-    @http.route(['/dieu_khoan'], auth='public', website=True)
+    @http.route(['/dieu-khoan'], auth='public', website=True)
     def dieu_khoan(self, **kw):
 
         return request.render('quang_cao.dieu_khoan')
 
-    @http.route(['/bien_quang_cao_dep'], auth='public', website=True)
+    @http.route(['/bien-quang-cao-dep'], auth='public', website=True)
     def bien_quang_cao_dep(self, **kw):
 
         return request.render('quang_cao.bien_quang_cao_dep')
+
+
+    @http.route(['/bang-gia-bien-quang-cao'], auth='public', website=True)
+    def bien_quang_cao_dep(self, **kw):
+
+        return request.render('quang_cao.bang_gia_bien_quang_cao')
