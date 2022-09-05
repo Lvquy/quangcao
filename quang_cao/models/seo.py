@@ -77,7 +77,7 @@ class ListKeyword(models.Model):
 
     name = fields.Char(string='Từ khóa')
     search_count_pm = fields.Integer(string='Số lần tìm kiếm TB / Tháng')
-    canh_tranh = fields.Selection([('0','Thấp'),('1','Vừa'),('2','Cao')],string='Cạnh tranh')
+    canh_tranh = fields.Selection([('0','Thấp'),('1','Trung bình'),('2','Cao')],string='Cạnh tranh')
     thu_hang = fields.Integer(string='Thứ hạng')
     old_rank = fields.Integer(string='Thứ hạng cũ')
     date_update = fields.Date(string='Ngày cập nhật')
