@@ -9,7 +9,6 @@
             <span>
                 <a href="https://bienquangcaotruongphat.vn" target="_blank">bienquangcaotruongphat.vn</a> -
             </span>
-            <img t-att-src="'/quang_cao/static/src/img/logo-quang-cao-truong-phat.png'" alt="Logo Cty quảng cáo Trường Phát" width="50"/>
         </xpath>
     </template>
 </odoo>
