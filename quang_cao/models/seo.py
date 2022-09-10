@@ -118,3 +118,9 @@ class KeywordListLong(models.Model):
     name = fields.Char(string='Từ khóa')
     ranking = fields.Integer(string='Thứ hạng')
     ref_log_ranking = fields.Many2one(comodel_name='log.ranking', string='Log Keyword ranking')
+
+class BlogPost(models.Model):
+    _inherit = 'blog.post'
+
+    def test(self):
+        print(self.content)

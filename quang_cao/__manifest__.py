@@ -8,7 +8,7 @@
     'author': 'Lv Quy',
     'company': 'Trường Phát',
     'website': 'https://#',
-    'depends': ['base_setup', 'prt_report_attachment_preview', 'rowno_in_tree', 'web_responsive','website'],
+    'depends': ['base_setup', 'prt_report_attachment_preview', 'rowno_in_tree', 'web_responsive','website','website_blog'],
     'data': [
         # security
         'security/ir.model.access.csv',
@@ -19,6 +19,7 @@
         'views/seo_web.xml',
         'views/res_config_setting.xml',
         'views/key_log_ranking.xml',
+        'views/blog_content_backend.xml',
     ],
 
     'assets': {

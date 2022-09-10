@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+        <record id="blog_post_content_backend" model="ir.ui.view">
+            <field name="name">blog.post.inherit</field>
+            <field name="model">blog.post</field>
+            <field name="inherit_id" ref="website_blog.view_blog_post_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/notebook/page[@name='seo']" position="after">
+                    <page name="content_backend" string="Content">
+                        <button name="test" type="object" string="Test"/>
+                        <field name="content" options="{'codeview': true}"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
