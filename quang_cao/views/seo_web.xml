@@ -7,12 +7,14 @@
             <field name="arch" type="xml">
                 <form string="Danh sách">
                     <header>
-                            <field name="state" widget="statusbar" statusbar_visible="0,1"/>
-                            <button name="confirm" string="Confirm" type="object" attrs="{'invisible':[('state', 'in', ('1'))]}"/>
-                            <button name="done" string="Done" type="object" attrs="{'invisible':[('state', 'in', ('0','2'))]}"/>
-                            <button name="check_ranking" string="Update ranking" type="object"/>
-                            <button name="create_log" string="create log" type="object"/>
-                        </header>
+                        <field name="state" widget="statusbar" statusbar_visible="0,1"/>
+                        <button name="confirm" string="Confirm" type="object"
+                                attrs="{'invisible':[('state', 'in', ('1'))]}"/>
+                        <button name="done" string="Done" type="object"
+                                attrs="{'invisible':[('state', 'in', ('0','2'))]}"/>
+                        <button name="check_ranking" string="Update ranking" type="object"/>
+                        <button name="create_log" string="create log" type="object"/>
+                    </header>
                     <sheet>
                         <group string="SEO">
                             <group>
@@ -60,11 +62,13 @@
             <field name="name">list.keyword.tree</field>
             <field name="model">list.keyword</field>
             <field name="arch" type="xml">
-                <tree string="Danh sách" editable="bottom" >
+                <tree string="Danh sách" editable="bottom">
                     <field name="name" optional="show"/>
                     <field name="search_count_pm" optional="show"/>
-                    <field name="canh_tranh" optional="show" decoration-success="canh_tranh=='0'" decoration-danger="canh_tranh=='2'"/>
-                    <field name="thu_hang" optional="show" decoration-success="thu_hang&lt;=10" decoration-danger="thu_hang &gt;= 20"/>
+                    <field name="canh_tranh" optional="show" decoration-success="canh_tranh=='0'"
+                           decoration-danger="canh_tranh=='2'"/>
+                    <field name="thu_hang" optional="show" decoration-success="thu_hang&lt;=10"
+                           decoration-danger="thu_hang &gt;= 20"/>
                     <field name="old_rank" optional="show"/>
                     <field name="date_update" optional="show"/>
                     <button name="view_blog" string="View blog" type="object" class="btn btn-primary"/>
@@ -95,12 +99,13 @@
                 </p>
             </field>
         </record>
-        <menuitem id="menu_seo_web" name="SEO Google" sequence="1"
-              web_icon="quang_cao,static/src/img/seo.png" groups="base.group_user,base.group_system"/>
-        <menuitem id="menu_sub_seo_web" name="Danh sách" parent="menu_seo_web" action="action_view_seo_web"
-              sequence="1" groups="base.group_user,base.group_system"/>
 
-        <menuitem id="menu_sub_list_keyword" name="Danh sách từ khóa" parent="menu_seo_web" action="action_view_list_keyword"
-              sequence="1" groups="base.group_system,base.group_user"/>
+        <menuitem id="menu_seo_web" name="SEO Google" sequence="1"
+                  web_icon="quang_cao,static/src/img/seo.png" groups="base.group_user,base.group_system"/>
+        <menuitem id="menu_sub_seo_web" name="Danh sách" parent="menu_seo_web" action="action_view_seo_web"
+                  sequence="1" groups="base.group_user,base.group_system"/>
+        <menuitem id="menu_sub_list_keyword" name="Danh sách từ khóa" parent="menu_seo_web"
+                  action="action_view_list_keyword"
+                  sequence="1" groups="base.group_system,base.group_user"/>
     </data>
 </odoo>

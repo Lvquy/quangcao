@@ -24,6 +24,7 @@ class SEO(models.Model):
     page = fields.Integer(string='Trang thứ', default=1)
 
     def confirm(self):
+        print('confirm')
         self.state = '1'
     def done(self):
         self.state = '2'
