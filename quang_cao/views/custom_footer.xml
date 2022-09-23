@@ -3,12 +3,12 @@
     <template id="website_sale.brand_promotion" inherit_id="website.brand_promotion">
         <xpath expr="//t[@t-call='web.brand_promotion_message']" position="replace">
 
-            <span>
-                <a href="https://bienquangcaotruongphat.com" target="_blank">bienquangcaotruongphat.com</a> -
-            </span>
-            <span>
-                <a href="https://bienquangcaotruongphat.vn" target="_blank">bienquangcaotruongphat.vn</a>
-            </span>
+<!--            <span>-->
+<!--                <a href="https://bienquangcaotruongphat.com" target="_blank">bienquangcaotruongphat.com</a> - -->
+<!--            </span>-->
+<!--            <span>-->
+<!--                <a href="https://bienquangcaotruongphat.vn" target="_blank">bienquangcaotruongphat.vn</a>-->
+<!--            </span>-->
         </xpath>
     </template>
 </odoo>
