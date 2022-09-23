@@ -11,4 +11,16 @@
         <xpath expr="//a" position="replace">
         </xpath>
     </template>
+
+    <template id="hide_price" inherit_id="website_sale.products_item" customize_show="True" name="Hide price">
+        <xpath expr="//div[hasclass('o_wsale_product_information_text')]" position="replace">
+            <div class="p-2 o_wsale_product_information_text">
+                    <h6 class="o_wsale_products_item_title mb-1">
+                        <a class="text-primary text-decoration-none" itemprop="name" t-att-href="product_href" t-att-content="product.name" t-field="product.name" />
+                        <a role="button" t-if="not product.website_published" t-att-href="product_href" class="btn btn-sm btn-danger" title="This product is unpublished.">Unpublished</a>
+                    </h6>
+                </div>
+                <div class="o_wsale_product_btn pl-2"/>
+        </xpath>
+    </template>
 </odoo>
