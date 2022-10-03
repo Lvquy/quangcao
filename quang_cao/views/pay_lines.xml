@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="pay_lines_pur_form" model="ir.ui.view">
+            <field name="name">purchase.payment.form</field>
+            <field name="model">purchase.payment</field>
+            <field name="arch" type="xml">
+                <form string="Thanh toán">
+                    <sheet>
+                        <group>
+                            <field name="pay_date"/>
+                            <field name="acount_pay"/>
+                            <field name="partner_id"/>
+                            <field name="to_acount" force_save = "1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="pay_lines_pur_tree" model="ir.ui.view">
+            <field name="name">purchase.payment.tree</field>
+            <field name="model">purchase.payment</field>
+            <field name="arch" type="xml">
+                <tree string="Thanh toán">
+                    <field name="pay_date"/>
+                    <field name="acount_pay"/>
+                    <field name="ref_pur"/>
+                    <field name="partner_id"/>
+                    <field name="to_acount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="pay_lines_sale_form" model="ir.ui.view">
+            <field name="name">sale.payment.form</field>
+            <field name="model">sale.payment</field>
+            <field name="arch" type="xml">
+                <form string="Thanh toán">
+                    <sheet>
+                        <group>
+                            <field name="pay_date"/>
+                            <field name="acount_pay"/>
+                            <field name="partner_id" force_save = "1"/>
+                            <field name="to_acount"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="pay_lines_sale_tree" model="ir.ui.view">
+            <field name="name">sale.payment.tree</field>
+            <field name="model">sale.payment</field>
+            <field name="arch" type="xml">
+                <tree string="Thanh toán">
+                    <field name="pay_date"/>
+                    <field name="acount_pay"/>
+                    <field name="partner_id" force_save = "1"/>
+                    <field name="ref_sale"/>
+                    <field name="to_acount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -3,6 +3,12 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_quang_cao_seo_web_user,seo.web.user,model_seo_web,base.group_user,1,1,1,1
 access_quang_cao_seo_web_root,seo.web.root,model_seo_web,base.group_system,1,1,1,1
 
+access_quang_cao_sale_payment_root,sale.payment.root,model_sale_payment,base.group_system,1,1,1,1
+access_quang_cao_sale_payment_user,sale.payment.user,model_sale_payment,base.group_user,1,1,1,1
+
+access_quang_cao_purchase_payment_root,purchase.payment.root,model_purchase_payment,base.group_system,1,1,1,1
+access_quang_cao_purchase_payment_user,purchase.payment.user,model_purchase_payment,base.group_user,1,1,1,1
+
 access_quang_cao_list_keyword_user,list.keyword.user,model_list_keyword,base.group_user,1,1,1,1
 access_quang_cao_list_keyword_root,list.keyword.root,model_list_keyword,base.group_system,1,1,1,1
 

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="is_payment_purchase_form" model="ir.ui.view">
+            <field name="name">purchase.form.ispayment.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="priority" eval="10"/>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='products']" position="after">
+                    <page name="payment" string="Thanh toán">
+                        <field name="payment_lines"/>
+                    </page>
+                </xpath>
+                <header>
+                    <button name="confirm_payment" type="object" string="XN thanh toán" class="btn btn-success"
+                            attrs="{'invisible':[('state_payment', 'in', ('2'))]}"/>
+                    <button name="cancel_payment" type="object" string="Hủy thanh toán"
+                            attrs="{'invisible':[('state_payment', 'in', ('0','1',False))]}"/>
+                </header>
+                <xpath expr="//header" position="after">
+                    <div class="alert alert-danger text-center o_form_header" role="alert"
+                         attrs="{'invisible':[('state_payment', 'in', ('0','2',False))]}">
+                        <a class="close" data-dismiss="alert" href="#">x</a>
+                        <div>
+                            <strong>Đã tới ngày hạn chót thanh toán</strong>
+                        </div>
+                    </div>
+                <br/>
+                </xpath>
+                <xpath expr="//sheet/group/group/field[@name='partner_id']" position="after">
+                    <field name="overdue"/>
+                    <field name="pay_date"/>
+                    <field name="state_payment" decoration-success="state_payment == '2'" decoration-danger="state_payment == '1'"/>
+                    <field name="payed_total" decoration-success="payed_total == amount_total_coppy"/>
+                    <field name="amount_total_coppy"/>
+                </xpath>
+                <field name="date_order" position="replace">
+                    <field name="date_order" attrs="{'invisible': [('state','in',('purchase','done'))]}" widget="date"/>
+                </field>
+                <field name="date_planned" position="replace">
+                    <field name="date_planned" attrs="{'readonly': [('state', 'not in', ('draft', 'sent', 'to approve', 'purchase'))]}" widget="date"/>
+                </field>
+
+
+            </field>
+        </record>
+
+        <record id="is_payment_sale_tree" model="ir.ui.view">
+            <field name="name">sale.tree.ispayment.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="priority" eval="10"/>
+            <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="state_payment" optional="show" decoration-success="state_payment == '2' " decoration-danger="state_payment == '1' "/>
+                    <field name="pay_date" optional="show"/>
+                    <field name="overdue" optional="show" decoration-danger="state_payment == '1' "/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="custom_purchase_tree" model="ir.ui.view">
+            <field name="name">purchase.tree.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="priority" eval="10"/>
+            <field name="inherit_id" ref="purchase.purchase_order_kpis_tree"/>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="state_payment" optional="show" decoration-success="state_payment == '2' " decoration-danger="state_payment == '1' "/>
+                    <field name="pay_date" optional="show"/>
+                    <field name="overdue" optional="show" decoration-danger="state_payment == '1' "/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

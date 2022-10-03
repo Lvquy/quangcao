@@ -10,6 +10,9 @@
     'website': 'https://#',
     'depends': ['base_setup', 'prt_report_attachment_preview', 'rowno_in_tree', 'web_responsive','website','website_blog'],
     'data': [
+        #data
+        'data/cronjob.xml',
+        'data/email_template.xml',
         # security
         'security/ir.model.access.csv',
         # views
@@ -20,6 +23,10 @@
         'views/res_config_setting.xml',
         'views/key_log_ranking.xml',
         'views/blog_content_backend.xml',
+        'views/sale.xml',
+        'views/purchase.xml',
+        'views/pay_lines.xml',
+        'views/res_company.xml',
     ],
 
     'assets': {

@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="0">
+        <!-- sale -->
+        <record id="mail_template_overdue_payment" model="mail.template">
+            <field name="name">Thông báo khách hàng trễ thanh toán</field>
+            <field name="model_id" ref="quang_cao.model_sale_order"/>
+            <field name="subject">{{ ('Thông báo khách hàng trễ thanh toán') }}</field>
+            <field name="email_from">{{ (object.company_id.email) }}</field>
+<!--            <field name="email_to">{{ (object.company_id.email)}}</field>-->
+            <field name="body_html" type="html">
+                <div class="container">
+                    <div class="row ">
+                        <h1 class="col-12  text-success text-center">Danh sách khách hàng trễ thanh toán</h1>
+                        <div class="col-12">
+                            <strong>
+                                Ngày: <t t-esc="datetime.date.today()" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>
+                            </strong>
+                        </div>
+                        <div class="mb-2">
+                            <table class="table table-striped">
+                                <thead style="display: table-row-group">
+                                    <tr>
+                                        <th class="text-center text-primary">STT</th>
+                                        <th class="text-center text-primary">Mã đơn hàng</th>
+                                        <th class="text-center text-primary">Khách hàng</th>
+                                        <th class="text-center text-primary">Số điện thoại</th>
+                                        <th class="text-center text-primary">Ngày mua</th>
+                                        <th class="text-center text-primary">Ngày hẹn trả</th>
+                                        <th class="text-right text-primary">Số tiền đã trả(VNĐ)</th>
+                                        <th class="text-right text-primary">Số tiền còn nợ(VNĐ)</th>
+                                        <th class="text-right text-primary">Tổng đơn(VNĐ)</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="sale_tbody">
+                                    <t t-set="stt" t-value="1"/>
+                                    <t t-set="total" t-value="0"/>
+                                    <t t-foreach="object.get_sale_order_is_overdue_payment()" t-as="line">
+                                        <t t-set="total" t-value="total + (line.amount_total - line.payed_total)"/>
+                                        <tr t-att-class="'bg-200 font-weight-bold o_line_section'">
+                                            <td class="text-center">
+                                                <span t-esc="stt"/>
+                                                <t t-set="stt" t-value="stt+1"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <t t-esc="line.name"/>
+                                            </td>
+                                            <td class="text-center">
+                                               <t t-esc="line.partner_id.name"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <t t-esc="line.partner_id.mobile"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <t t-esc="line.date_order" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>
+                                            </td>
+                                            <td class="text-center">
+                                                <t t-esc="line.overdue" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>
+                                            </td>
+                                            <td class="text-right">
+                                                <t t-esc="'{0:,.0f}'.format(float(line.payed_total))"/>
+                                                <t t-if="line.amount_total > 0">
+                                                    (<t t-esc="'{0:,.2f}'.format(100*(line.payed_total / line.amount_total))"/> %)
+                                                </t>
+                                            </td>
+                                            <td class="text-right">
+                                                <t t-esc="'{0:,.0f}'.format(float(line.amount_total - line.payed_total))"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <t t-esc="'{0:,.0f}'.format(float(line.amount_total))"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                                <tr class="is-subtotal text-right">
+                                    <td colspan="7">
+                                        <strong class="mr16">Tổng nợ:</strong>
+                                    </td>
+                                    <td class="text-right">
+                                        <strong><t t-esc="'{0:,.0f}'.format(float(total))"/></strong>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                            <div class="oe_structure"/>
+                        </div>
+                        <div class="col-12">
+                            <span class="text-info">Email được gửi từ website
+                                <a href="https://bienquangcaotruongphat.vn" target="_blank">https://bienquangcaotruongphat.vn</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+<!--        purchase-->
+        <record id="mail_template_purchase_overdue_payment" model="mail.template">
+            <field name="name">Thông báo trễ thanh toán cho khách hàng</field>
+            <field name="model_id" ref="quang_cao.model_purchase_order"/>
+            <field name="subject">{{ ('Thông báo trễ thanh toán cho khách hàng') }}</field>
+            <field name="email_from">{{ (object.company_id.email) }}</field>
+<!--            <field name="email_to">{{ (object.company_id.email)}}</field>-->
+            <field name="body_html" type="html">
+                <div class="container">
+                    <div class="row ">
+                        <h1 class="col-12  text-success text-center">Danh sách đơn hàng trễ thanh toán</h1>
+                        <div class="col-12">
+                            <strong>
+                                Ngày: <t t-esc="datetime.date.today()" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>
+                            </strong>
+                        </div>
+                        <div class="mb-2">
+                            <table class="table table-striped">
+                                <thead style="display: table-row-group">
+                                    <tr>
+                                        <th class="text-center text-primary">STT</th>
+                                        <th class="text-center text-primary">Mã đơn hàng</th>
+                                        <th class="text-center text-primary">Khách hàng</th>
+                                        <th class="text-center text-primary">Số điện thoại</th>
+                                        <th class="text-center text-primary">Ngày mua</th>
+                                        <th class="text-center text-primary">Ngày hẹn trả</th>
+                                        <th class="text-right text-primary">Số tiền đã trả(VNĐ)</th>
+                                        <th class="text-right text-primary">Số tiền còn nợ(VNĐ)</th>
+                                        <th class="text-right text-primary">Tổng đơn(VNĐ)</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="sale_tbody">
+                                    <t t-set="stt" t-value="1"/>
+                                    <t t-set="total" t-value="0"/>
+                                    <t t-foreach="object.get_pur_order_is_overdue_payment()" t-as="line">
+                                        <t t-set="total" t-value="total + (line.amount_total - line.payed_total)"/>
+                                        <tr t-att-class="'bg-200 font-weight-bold o_line_section'">
+                                            <td class="text-center">
+                                                <span t-esc="stt"/>
+                                                <t t-set="stt" t-value="stt+1"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <t t-esc="line.name"/>
+                                            </td>
+                                            <td class="text-center">
+                                               <t t-esc="line.partner_id.name"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <t t-esc="line.partner_id.mobile"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <t t-esc="line.date_order" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>
+                                            </td>
+                                            <td class="text-center">
+                                                <t t-esc="line.overdue" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>
+                                            </td>
+                                            <td class="text-right">
+                                                <t t-esc="'{0:,.0f}'.format(float(line.payed_total))"/>
+                                                <t t-if="line.amount_total > 0">
+                                                    (<t t-esc="'{0:,.2f}'.format(100*(line.payed_total / line.amount_total))"/> %)
+                                                </t>
+                                            </td>
+                                            <td class="text-right">
+                                                <t t-esc="'{0:,.0f}'.format(float(line.amount_total - line.payed_total))"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <t t-esc="'{0:,.0f}'.format(float(line.amount_total))"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                                <tr class="is-subtotal text-right">
+                                    <td colspan="7">
+                                        <strong class="mr16">Tổng nợ:</strong>
+                                    </td>
+                                    <td class="text-right">
+                                        <strong><t t-esc="'{0:,.0f}'.format(float(total))"/></strong>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                            <div class="oe_structure"/>
+                        </div>
+                        <div class="col-12">
+                            <span class="text-info">Email được gửi từ website
+                                <a href="https://bienquangcaotruongphat.vn" target="_blank">https://bienquangcaotruongphat.vn</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+    </data>
+</odoo>
