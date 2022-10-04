@@ -8,7 +8,7 @@
     'author': 'Lv Quy',
     'company': 'Trường Phát',
     'website': 'https://#',
-    'depends': ['base_setup', 'prt_report_attachment_preview', 'rowno_in_tree', 'web_responsive','website','website_blog'],
+    'depends': ['base_setup', 'website_sale','website','website_blog'],
     'data': [
         #data
         'data/cronjob.xml',
