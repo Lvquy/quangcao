@@ -11,25 +11,26 @@
             <field name="body_html" type="html">
                 <div class="container">
                     <div class="row ">
-                        <h1 class="col-12  text-success text-center">Danh sách khách hàng trễ thanh toán</h1>
+                        <h1 style="text-align:center; color:red">DANH SÁCH ĐƠN BÁN HÀNG TRỄ THANH TOÁN</h1>
                         <div class="col-12">
-                            <strong>
-                                Ngày: <t t-esc="datetime.date.today()" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>
-                            </strong>
+                            <h4>
+                                Ngày: <t t-esc="datetime.date.today()" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>, Tiền tệ: VNĐ
+                            </h4>
                         </div>
                         <div class="mb-2">
-                            <table class="table table-bordered">
+                            <table border="1" cellpadding="0" cellspacing="0" style="padding-top: 0px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;">
                                 <thead style="display: table-row-group">
                                     <tr>
-                                        <th class="text-center text-primary">STT</th>
+                                        <th align="center" >#</th>
                                         <th class="text-center text-primary">Mã đơn hàng</th>
                                         <th class="text-center text-primary">Khách hàng</th>
-                                        <th class="text-center text-primary">Số điện thoại</th>
+                                        <th class="text-center text-primary">SĐT</th>
                                         <th class="text-center text-primary">Ngày mua</th>
                                         <th class="text-center text-primary">Ngày hẹn trả</th>
-                                        <th class="text-right text-primary">Số tiền đã trả(VNĐ)</th>
-                                        <th class="text-right text-primary">Số tiền còn nợ(VNĐ)</th>
-                                        <th class="text-right text-primary">Tổng đơn(VNĐ)</th>
+                                        <th class="text-right text-primary">Đã trả</th>
+                                        <th class="text-right text-primary">Tổng đơn</th>
+                                        <th class="text-right text-primary">Còn nợ</th>
+
                                     </tr>
                                 </thead>
                                 <tbody class="sale_tbody">
@@ -38,56 +39,57 @@
                                     <t t-foreach="object.get_sale_order_is_overdue_payment()" t-as="line">
                                         <t t-set="total" t-value="total + (line.amount_total - line.payed_total)"/>
                                         <tr t-att-class="'bg-200 font-weight-bold o_line_section'">
-                                            <td class="text-center">
+                                            <td align="center" >
                                                 <span t-esc="stt"/>
                                                 <t t-set="stt" t-value="stt+1"/>
                                             </td>
-                                            <td class="text-center">
+                                            <td align="center" >
                                                 <t t-esc="line.name"/>
                                             </td>
-                                            <td class="text-center">
+                                            <td align="center" >
                                                <t t-esc="line.partner_id.name"/>
                                             </td>
-                                            <td class="text-center">
+                                            <td align="center" >
                                                 <t t-esc="line.partner_id.mobile"/>
                                             </td>
-                                            <td class="text-center">
+                                            <td align="center" >
                                                 <t t-esc="line.date_order" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>
                                             </td>
-                                            <td class="text-center">
+                                            <td align="center" >
                                                 <t t-esc="line.overdue" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>
                                             </td>
-                                            <td class="text-right">
+                                            <td align="center" >
                                                 <t t-esc="'{0:,.0f}'.format(float(line.payed_total))"/>
                                                 <t t-if="line.amount_total > 0">
-                                                    (<t t-esc="'{0:,.2f}'.format(100*(line.payed_total / line.amount_total))"/> %)
+                                                    (<t t-esc="'{0:,.0f}'.format(100*(line.payed_total / line.amount_total))"/> %)
                                                 </t>
                                             </td>
-                                            <td class="text-right">
-                                                <t t-esc="'{0:,.0f}'.format(float(line.amount_total - line.payed_total))"/>
-                                            </td>
-                                            <td class="text-right">
+                                            <td align="right" >
                                                 <t t-esc="'{0:,.0f}'.format(float(line.amount_total))"/>
                                             </td>
+                                            <td align="right" >
+                                                <t t-esc="'{0:,.0f}'.format(float(line.amount_total - line.payed_total))"/>
+                                            </td>
+
                                         </tr>
                                     </t>
                                 </tbody>
-                                <tr class="is-subtotal text-right">
-                                    <td colspan="7">
-                                        <strong class="mr16">Tổng nợ:</strong>
+                                <tr>
+                                    <td align="center" colspan="8">
+                                        <strong class="mr16">TỔNG NỢ</strong>
                                     </td>
-                                    <td class="text-right">
+                                    <td align="right" >
                                         <strong><t t-esc="'{0:,.0f}'.format(float(total))"/></strong>
                                     </td>
-                                    <td></td>
+
                                 </tr>
                             </table>
                             <div class="oe_structure"/>
                         </div>
-                        <div class="col-12">
-                            <span class="text-info">Email được gửi từ website
+                        <div style="margin-top:5px">
+                            <h4 class="text-info">Email được gửi tự động từ website
                                 <a href="https://bienquangcaotruongphat.vn" target="_blank">https://bienquangcaotruongphat.vn</a>
-                            </span>
+                            </h4>
                         </div>
                     </div>
                 </div>
@@ -101,29 +103,27 @@
             <field name="model_id" ref="quang_cao.model_purchase_order"/>
             <field name="subject">{{ ('Thông báo trễ thanh toán cho khách hàng') }}</field>
             <field name="email_from">{{ (object.company_id.email) }}</field>
-<!--            <field name="email_to">{{ (object.company_id.email)}}</field>-->
             <field name="body_html" type="html">
                 <div class="container">
                     <div class="row ">
-                        <h1 class="col-12  text-success text-center">Danh sách đơn hàng trễ thanh toán</h1>
-                        <div class="col-12">
-                            <strong>
-                                Ngày: <t t-esc="datetime.date.today()" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>
-                            </strong>
-                        </div>
+                        <h1 style="text-align:center; color:red">DANH SÁCH ĐƠN MUA HÀNG TRỄ THANH TOÁN</h1>
+                        <h4>
+                            Ngày: <t t-esc="datetime.date.today()" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>, Tiền tệ: VNĐ
+                        </h4>
                         <div class="mb-2">
-                            <table class="table table-striped">
+                            <table border="1" cellpadding="0" cellspacing="0" style="padding-top: 0px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;">
                                 <thead style="display: table-row-group">
                                     <tr>
-                                        <th class="text-center text-primary">STT</th>
+                                        <th class="text-center text-primary">#</th>
                                         <th class="text-center text-primary">Mã đơn hàng</th>
-                                        <th class="text-center text-primary">Khách hàng</th>
-                                        <th class="text-center text-primary">Số điện thoại</th>
+                                        <th class="text-center text-primary">Nhà cung cấp</th>
+                                        <th class="text-center text-primary">SĐT</th>
                                         <th class="text-center text-primary">Ngày mua</th>
                                         <th class="text-center text-primary">Ngày hẹn trả</th>
-                                        <th class="text-right text-primary">Số tiền đã trả(VNĐ)</th>
-                                        <th class="text-right text-primary">Số tiền còn nợ(VNĐ)</th>
-                                        <th class="text-right text-primary">Tổng đơn(VNĐ)</th>
+                                        <th class="text-right text-primary">Đã trả</th>
+                                        <th class="text-right text-primary">Tổng đơn</th>
+                                        <th class="text-right text-primary">Còn nợ</th>
+
                                     </tr>
                                 </thead>
                                 <tbody class="sale_tbody">
@@ -132,56 +132,56 @@
                                     <t t-foreach="object.get_pur_order_is_overdue_payment()" t-as="line">
                                         <t t-set="total" t-value="total + (line.amount_total - line.payed_total)"/>
                                         <tr t-att-class="'bg-200 font-weight-bold o_line_section'">
-                                            <td class="text-center">
+                                            <td align="center">
                                                 <span t-esc="stt"/>
                                                 <t t-set="stt" t-value="stt+1"/>
                                             </td>
-                                            <td class="text-center">
+                                            <td align="center">
                                                 <t t-esc="line.name"/>
                                             </td>
-                                            <td class="text-center">
+                                            <td align="center">
                                                <t t-esc="line.partner_id.name"/>
                                             </td>
-                                            <td class="text-center">
+                                            <td align="center">
                                                 <t t-esc="line.partner_id.mobile"/>
                                             </td>
-                                            <td class="text-center">
+                                            <td align="center">
                                                 <t t-esc="line.date_order" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>
                                             </td>
-                                            <td class="text-center">
+                                            <td align="center">
                                                 <t t-esc="line.overdue" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>
                                             </td>
-                                            <td class="text-right">
+                                            <td align="right">
                                                 <t t-esc="'{0:,.0f}'.format(float(line.payed_total))"/>
                                                 <t t-if="line.amount_total > 0">
                                                     (<t t-esc="'{0:,.2f}'.format(100*(line.payed_total / line.amount_total))"/> %)
                                                 </t>
                                             </td>
-                                            <td class="text-right">
-                                                <t t-esc="'{0:,.0f}'.format(float(line.amount_total - line.payed_total))"/>
-                                            </td>
-                                            <td class="text-right">
+                                            <td align="right">
                                                 <t t-esc="'{0:,.0f}'.format(float(line.amount_total))"/>
                                             </td>
+                                            <td align="right">
+                                                <t t-esc="'{0:,.0f}'.format(float(line.amount_total - line.payed_total))"/>
+                                            </td>
+
                                         </tr>
                                     </t>
                                 </tbody>
-                                <tr class="is-subtotal text-right">
-                                    <td colspan="7">
-                                        <strong class="mr16">Tổng nợ:</strong>
+                                <tr align="center">
+                                    <td colspan="8">
+                                        <strong class="mr16">TỔNG NỢ</strong>
                                     </td>
-                                    <td class="text-right">
+                                    <td align="right">
                                         <strong><t t-esc="'{0:,.0f}'.format(float(total))"/></strong>
                                     </td>
-                                    <td></td>
                                 </tr>
                             </table>
                             <div class="oe_structure"/>
                         </div>
                         <div class="col-12">
-                            <span class="text-info">Email được gửi từ website
+                            <h4 class="text-info">Email được gửi tự động từ website
                                 <a href="https://bienquangcaotruongphat.vn" target="_blank">https://bienquangcaotruongphat.vn</a>
-                            </span>
+                            </h4>
                         </div>
                     </div>
                 </div>
