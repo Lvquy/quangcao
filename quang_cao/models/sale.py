@@ -43,7 +43,7 @@ class Sale(models.Model):
     def _check_overdue(self):
         print('Cron job check overdue')
         today = date.today()
-        SaleOder = self.env['sale.order'].search(['&',('overdue','!=',False),('state_payment','!=','2')])
+        SaleOder = self.env['sale.order'].search(['&',('overdue','!=',False),('state_payment','!=','2'),('state','in',('sale','send','done'))])
         for i in SaleOder:
             if today.day >= i.overdue.day and today.month >= i.overdue.month and today.year >= i.overdue.year:
                 i.state_payment = '1'
@@ -52,6 +52,7 @@ class Sale(models.Model):
                 i.state_payment = '0'
                 print('chua qua han')
 
+
     def get_sale_order_is_overdue_payment(self):
         # push data to email template
         for rec in self:
@@ -59,13 +60,21 @@ class Sale(models.Model):
             return Order_Overdule
     def _send_email(self):
         Company = self.env['res.company'].search([])
-        for e in Company.list_email:
-            print(e.partner_id.email)
-            print('conjob send mail')
-            template_id = self.env.ref('quang_cao.mail_template_overdue_payment')
-            template_id.email_to = e.partner_id.email
-            template = self.env['mail.template'].browse(template_id.id)
-            template.send_mail(self.id, force_send=True)
+
+        sendmail = False
+        check_sale = self.env['sale.order'].search([('state','in',('sale','sent','done'))])
+        for i in check_sale:
+            if i.state_payment == '1':
+                self.sudo().write({'check_sendmail':True})
+                sendmail = True
+        if sendmail == True:
+            for e in Company.list_email:
+                print('conjob send mail')
+                template_id = self.env.ref('quang_cao.mail_template_overdue_payment')
+                template_id.email_to = e.partner_id.email
+                template = self.env['mail.template'].browse(template_id.id)
+                template.send_mail(self.id, force_send=True)
+        else: pass
 
 class SalePayment(models.Model):
     _name = 'sale.payment'
