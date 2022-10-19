@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_bang_cham_cong">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="doc">
+                <h2 class="text-center text-success font-weight-bold">BẢNG CHẤM CÔNG TRƯỜNG PHÁT
+                </h2>
+                <h2 class="text-center text-blue font-weight-bold">
+                    <span t-esc="doc.create_date.strftime('Ngày %d - Tháng %m - Năm %Y')"/>
+                </h2>
+                <t>
+                    <div>
+                        <span>Tổng nhân sự:</span>
+                        <span t-field="doc.total_employee"/>
+                    </div>
+                    <div>
+                        <span>Tổng thời gian tăng ca(Phút):</span>
+                        <span t-field="doc.tong_tangca"/>
+                    </div>
+
+                </t>
+                <table class="table table-striped">
+                    <thead>
+                        <tr class="text-center ">
+                            <th scope="col">#</th>
+                            <th scope="col">Nhân viên</th>
+                            <th scope="col">Sáng</th>
+                            <th scope="col">Chiều</th>
+                            <th scope="col">Tăng ca</th>
+                            <th scope="col">Ghi chú</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="stt" t-value="1"/>
+                        <t t-foreach="doc.nhan_vien" t-as="line">
+                            <tr class="text-center ">
+                                <th scope="row" class="align-middle">
+                                    <t t-esc="stt"/>
+                                    <t t-set="stt" t-value="stt+1"/>
+                                </th>
+                                <td class="align-middle">
+                                    <t t-esc="line.employee_tp.name"/>
+                                </td>
+                                <td class="align-middle" >
+                                    <t t-if="line.sang == True" >
+                                        <p style="color:green">√</p>
+                                    </t>
+                                    <t t-if="line.sang == False">
+                                        <p style="color:red">x</p>
+                                    </t>
+
+                                </td>
+                                <td class="align-middle">
+                                    <t t-if="line.chieu == True" >
+                                        <p style="color:green">√</p>
+                                    </t>
+                                    <t t-if="line.chieu == False">
+                                        <p style="color:red">x</p>
+                                    </t>
+                                </td>
+                                <td class="align-middle">
+                                    <t t-esc="line.tangca"/>
+                                </td>
+                                <td class="align-middle">
+                                    <t t-esc="line.note"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+                <hr/>
+                <span>Ghi chú:</span>
+                <br/>
+                <t t-esc="doc.note"/>
+                <br/>
+                <h2 class="text-right text-danger" t-if="doc.state == '1'">
+                   Đã chốt, không sửa! <img  src="/quang_cao/static/img/confirm.png" style="width:20%" />
+                </h2>
+                <p style="page-break-before:always;"></p>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_cham_cong_action">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="quang_cao.report_bang_cham_cong"/>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_cham_cong" model="ir.actions.report">
+            <field name="name">In bảng chấm công chi tiết</field>
+            <field name="model">cham.cong</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">quang_cao.report_cham_cong_action</field>
+            <field name="report_file">quang_cao.report_cham_cong_action</field>
+            <field name="print_report_name"> '%s' % (object.create_date)</field>
+            <field name="binding_model_id" ref="model_cham_cong"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

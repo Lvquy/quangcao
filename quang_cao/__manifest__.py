@@ -13,8 +13,14 @@
         #data
         'data/cronjob.xml',
         'data/email_template.xml',
+        'data/sequence.xml',
         # security
+        'security/groups.xml',
         'security/ir.model.access.csv',
+        # report
+        'report/cham_cong.xml',
+        'report/menu_print.xml',
+
         # views
         'views/hide_add_to_cart_btn.xml',
         'views/custom_page.xml',
@@ -27,6 +33,9 @@
         'views/purchase.xml',
         'views/pay_lines.xml',
         'views/res_company.xml',
+        'views/cham_cong.xml',
+        'views/tong_cong.xml',
+        'views/ung_luong.xml',
     ],
 
     'assets': {

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="total_cong_form" model="ir.ui.view">
+            <field name="name">total.cong.form</field>
+            <field name="model">total.cong</field>
+            <field name="arch" type="xml">
+                <form string="Tổng Chấm cômg trong tháng">
+                    <header>
+                        <button name="confirm" string="Xác nhận" type="object" class="btn btn-primary" attrs="{'invisible':[('state', 'in', ('1'))]}"/>
+                        <button name="cancel" string="Huỷ Xác nhận" type="object" class="btn btn-primary" attrs="{'invisible':[('state', 'in', ('0'))]}"/>
+                        <button name="compute_cong" string="Tính công" type="object" class="btn btn-primary" attrs="{'invisible':[('state', 'in', ('1'))]}"/>
+                        <button name="total_default_get" string="Lấy danh sách nhân viên" type="object" class="btn btn-primary" attrs="{'invisible':[('state', 'in', ('1'))]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="0,1"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="month"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="ngay_tao"/>
+                        </group>
+
+                        <notebook>
+                            <page name="nhanvien" string="Bảng công tháng này">
+                                <field name="nhan_vien" attrs="{'readonly':[('state', 'in', ('1'))]}"/>
+                            </page>
+                            <page name="list_chamcong" string="Bảng công từng ngày trong tháng">
+                                <field name="list_cong" attrs="{'readonly':[('state', 'in', ('1'))]}"/>
+                            </page>
+                        </notebook>
+                        <span>Ghi chú:</span>
+                        <field name="note"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="total_cong_tree" model="ir.ui.view">
+            <field name="name">total.cong.tree</field>
+            <field name="model">total.cong</field>
+            <field name="arch" type="xml">
+                <tree string="Danh sách" decoration-success="state == '1'">
+                    <field name="month" optional="show"/>
+                    <field name="ngay_tao" optional="show"/>
+                    <field name="note" optional="hide"/>
+                    <field name="state" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- action view-->
+        <record id="action_view_tong_cong" model="ir.actions.act_window">
+            <field name="name">Tổng công</field>
+            <field name="res_model">total.cong</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new ...
+                </p>
+            </field>
+        </record>
+
+
+        <record id="line_nhanvien_total_form" model="ir.ui.view">
+            <field name="name">line.nhanvien.total.form</field>
+            <field name="model">line.nhanvien.total</field>
+            <field name="arch" type="xml">
+                <form string="Line tổng công">
+                    <sheet>
+                        <group>
+                            <field name="employee_tp"/>
+                            <field name="total_cong"/>
+                            <field name="total_tangca"/>
+                            <field name="note"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="line_nhanvien_total_tree" model="ir.ui.view">
+            <field name="name">line.nhanvien.total.tree</field>
+            <field name="model">line.nhanvien.total</field>
+            <field name="arch" type="xml">
+                <tree string="Line nhân viên" editable="bottom" >
+                    <field name="employee_tp"/>
+                        <field name="total_cong" sum = "Total"/>
+                        <field name="total_tangca" sum = "Total"/>
+                        <field name="note"/>
+                </tree>
+            </field>
+        </record>
+
+        <menuitem id="menu_sub_tong_cham_cong" name="Tổng hợp cuối tháng" parent="menu_cham_cong" action="action_view_tong_cong"
+                  sequence="1" groups="base.group_system,quang_cao.group_cham_cong"/>
+    </data>
+</odoo>
+

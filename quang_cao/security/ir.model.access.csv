@@ -3,6 +3,22 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_quang_cao_seo_web_user,seo.web.user,model_seo_web,base.group_user,1,1,1,1
 access_quang_cao_seo_web_root,seo.web.root,model_seo_web,base.group_system,1,1,1,1
 
+access_quang_cao_cham_cong_user,cham.cong.user,model_cham_cong,quang_cao.group_cham_cong,1,1,1,1
+access_quang_cao_cham_cong_root,cham.cong.root,model_cham_cong,base.group_system,1,1,1,1
+
+access_quang_cao_ung_luong_user,ung.luong.user,model_ung_luong,quang_cao.group_cham_cong,1,1,1,1
+access_quang_cao_ung_luong_root,ung.luong.root,model_ung_luong,base.group_system,1,1,1,1
+
+access_quang_cao_line_nhanvien_user,line.nhanvien.user,model_line_nhanvien,quang_cao.group_cham_cong,1,1,1,1
+access_quang_cao_line_nhanvien_root,line.nhanvien.root,model_line_nhanvien,base.group_system,1,1,1,1
+
+access_quang_cao_total_cong_user,total.cong.user,model_total_cong,quang_cao.group_cham_cong,1,1,1,1
+access_quang_cao_total_cong_root,total.cong.root,model_total_cong,base.group_system,1,1,1,1
+
+access_quang_cao_line_nhanvien_total_user,line.nhanvien.total.user,model_line_nhanvien_total,quang_cao.group_cham_cong,1,1,1,1
+access_quang_cao_line_nhanvien_total_root,line.nhanvien.total.root,model_line_nhanvien_total,base.group_system,1,1,1,1
+
+
 access_quang_cao_sale_payment_root,sale.payment.root,model_sale_payment,base.group_system,1,1,1,1
 access_quang_cao_sale_payment_user,sale.payment.user,model_sale_payment,base.group_user,1,1,1,1
 

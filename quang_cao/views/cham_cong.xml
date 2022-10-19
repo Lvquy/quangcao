@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="cham_cong_form" model="ir.ui.view">
+            <field name="name">cham.cong.form</field>
+            <field name="model">cham.cong</field>
+            <field name="arch" type="xml">
+                <form string="Chấm cômg">
+                    <header>
+                        <button name="confirm" string="Xác nhận" type="object" class="btn btn-primary" attrs="{'invisible':[('state', 'in', ('1'))]}"/>
+                        <button name="cancel" string="Huỷ Xác nhận" type="object" class="btn btn-primary" attrs="{'invisible':[('state', 'in', ('0'))]}"/>
+                        <button name="reload_emp" string="Làm lại bảng chấm công" type="object" class="btn btn-primary" attrs="{'invisible':[('state', 'in', ('1'))]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="0,1"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="ngay_cong"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="total_employee"/>
+                            <field name="tong_tangca"/>
+                            <field name="ref_total_cong"/>
+                        </group>
+
+                        <notebook>
+                            <page name="nhanvien" string="Bảng chấm công chi tiết">
+                                <field name="nhan_vien" attrs="{'readonly':[('state', 'in', ('1'))]}"/>
+                            </page>
+                        </notebook>
+                        <span>Ghi chú:</span>
+                        <field name="note"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="cham_cong_tree" model="ir.ui.view">
+            <field name="name">cham.cong.tree</field>
+            <field name="model">cham.cong</field>
+            <field name="arch" type="xml">
+                <tree string="Danh sách nhân viên" decoration-success="state == '1'">
+                    <field name="ngay_cong" optional="show"/>
+                    <field name="tong_tangca" optional="show" decoration-warning="tong_tangca > 0" sum = "total"/>
+                    <field name="total_employee" optional="show"/>
+                    <field name="note" optional="show"/>
+                    <field name="state" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- action view-->
+        <record id="action_view_cham_cong" model="ir.actions.act_window">
+            <field name="name">Chấm công</field>
+            <field name="res_model">cham.cong</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new ...
+                </p>
+            </field>
+        </record>
+
+<!--        danh sách nhân viên -->
+        <record id="line_nhanvien_form" model="ir.ui.view">
+            <field name="name">line.nhanvien.form</field>
+            <field name="model">line.nhanvien</field>
+            <field name="arch" type="xml">
+                <form string="Line nhân viên">
+                    <sheet>
+                        <group>
+                            <field name="employee_tp"/>
+                            <field name="sang"/>
+                            <field name="chieu"/>
+                            <field name="cong_trong_ngay"/>
+                            <field name="tangca"/>
+                            <field name="note"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="line_nhanvien_tree" model="ir.ui.view">
+            <field name="name">line.nhanvien.tree</field>
+            <field name="model">line.nhanvien</field>
+            <field name="arch" type="xml">
+                <tree string="Line nhân viên" editable="bottom" decoration-warning="chieu == False or sang == False" decoration-bf="tangca > 0 " decoration-danger="sang == False and chieu == False">
+                    <field name="employee_tp"/>
+                    <field name="sang" />
+                    <field name="chieu" />
+                    <field name="cong_trong_ngay" />
+                    <field name="tangca" sum = "total"/>
+                    <field name="note"/>
+                </tree>
+            </field>
+        </record>
+
+        <menuitem id="menu_cham_cong" name="Chấm công - Ứng tiền" sequence="1"
+                  web_icon="quang_cao,static/img/cham_cong.png"
+                  groups="base.group_system,quang_cao.group_cham_cong"/>
+        <menuitem id="menu_sub_cham_cong" name="Danh sách ngày công" parent="menu_cham_cong" action="action_view_cham_cong"
+                  sequence="1" groups="base.group_system,quang_cao.group_cham_cong"/>
+    </data>
+</odoo>
+
