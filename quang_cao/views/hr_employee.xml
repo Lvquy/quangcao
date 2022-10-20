@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="alow_cham_cong_form" model="ir.ui.view">
+            <field name="name">hr.employee.inherit.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="coach_id" position="after">
+                    <field name="alow_cham_cong"/>
+                    <field name="net_luong"/>
+                    <field name="luong_1cong"/>
+                </field>
+<!--                <field name="resoure_calendar_id" position="after">-->
+<!--                    <field name="net_luong"/>-->
+<!--                </field>-->
+            </field>
+        </record>
+    </data>
+</odoo>

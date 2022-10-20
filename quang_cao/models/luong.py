@@ -16,8 +16,9 @@ class UngLuong(models.Model):
     so_tien = fields.Integer(string='Số tiền ứng(VNĐ)')
     type_ung = fields.Selection([('0','Chọn kiểu ứng'),('luong','Ứng lương'),('vl','Ứng mua vật liệu')],default='0',string='Kiểu ứng')
     note = fields.Text(string='Lý do ứng')
-    state = fields.Selection([('0','Nháp'),('1','Đã chuyển',)],default='0', string='Trạng thái')
+    state = fields.Selection([('0','Nháp'),('1','Đã chuyển tiền',)],default='0', string='Trạng thái')
     status = fields.Boolean(string='Đã trả đủ', default=False)
+    ref_ung_luong = fields.Many2one(comodel_name='total.cong', string='Ứng lương trong tháng', readonly=True)
 
     @api.model
     def create(self, vals):

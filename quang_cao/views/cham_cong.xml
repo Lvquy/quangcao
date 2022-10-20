@@ -15,13 +15,13 @@
                     <sheet>
                         <div class="oe_title">
                             <h1>
-                                <field name="ngay_cong"/>
+                                <field name="ngay_cong" attrs="{'readonly':[('state', 'in', ('1'))]}"/>
                             </h1>
                         </div>
                         <group>
                             <field name="total_employee"/>
                             <field name="tong_tangca"/>
-                            <field name="ref_total_cong"/>
+                            <field name="ref_total_cong" attrs="{'readonly':[('state', 'in', ('1'))]}"/>
                         </group>
 
                         <notebook>

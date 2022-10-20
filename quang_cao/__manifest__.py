@@ -36,6 +36,7 @@
         'views/cham_cong.xml',
         'views/tong_cong.xml',
         'views/ung_luong.xml',
+        'views/hr_employee.xml',
     ],
 
     'assets': {

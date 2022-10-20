@@ -16,11 +16,18 @@
                     <sheet>
                         <div class="oe_title">
                             <h1>
-                                <field name="month"/>
+                                <field name="month" attrs="{'readonly':[('state', 'in', ('1'))]}"/>
                             </h1>
                         </div>
                         <group>
-                            <field name="ngay_tao"/>
+                            <field name="ngay_tao" attrs="{'readonly':[('state', 'in', ('1'))]}"/>
+                        </group>
+                        <group>
+                            <field name="total_tien_tang_ca"/>
+                            <field name="total_gio_tang_ca"/>
+                            <field name="total_cong"/>
+                            <field name="total_luong"/>
+                            <field name="doc_tien"/>
                         </group>
 
                         <notebook>
@@ -29,6 +36,9 @@
                             </page>
                             <page name="list_chamcong" string="Bảng công từng ngày trong tháng">
                                 <field name="list_cong" attrs="{'readonly':[('state', 'in', ('1'))]}"/>
+                            </page>
+                            <page name="list_ungluong" string="Danh sách ứng lương tháng này">
+                                <field name="ung_luong" attrs="{'readonly':[('state', 'in', ('1'))]}"/>
                             </page>
                         </notebook>
                         <span>Ghi chú:</span>
@@ -45,6 +55,10 @@
                 <tree string="Danh sách" decoration-success="state == '1'">
                     <field name="month" optional="show"/>
                     <field name="ngay_tao" optional="show"/>
+                    <field name="total_luong" sum = "total"/>
+                    <field name="total_tien_tang_ca" sum = "total"/>
+                    <field name="total_gio_tang_ca" sum = "total"/>
+                    <field name="total_cong" sum = "total"/>
                     <field name="note" optional="hide"/>
                     <field name="state" optional="show"/>
                 </tree>
@@ -73,7 +87,12 @@
                         <group>
                             <field name="employee_tp"/>
                             <field name="total_cong"/>
+                            <field name="luong_1cong"/>
+                            <field name="ung_luong"/>
+                            <field name="tru_khac"/>
                             <field name="total_tangca"/>
+                            <field name="tien_tang_ca"/>
+                            <field name="tong_luong"/>
                             <field name="note"/>
                         </group>
                     </sheet>
@@ -86,9 +105,14 @@
             <field name="arch" type="xml">
                 <tree string="Line nhân viên" editable="bottom" >
                     <field name="employee_tp"/>
-                        <field name="total_cong" sum = "Total"/>
-                        <field name="total_tangca" sum = "Total"/>
-                        <field name="note"/>
+                    <field name="total_cong" sum = "total"/>
+                    <field name="luong_1cong"/>
+                    <field name="ung_luong" sum = "total"/>
+                    <field name="tru_khac" sum = "total"/>
+                    <field name="total_tangca" sum = "total"/>
+                    <field name="tien_tang_ca" sum = "total"/>
+                    <field name="tong_luong" sum = "total"/>
+                    <field name="note"/>
                 </tree>
             </field>
         </record>
