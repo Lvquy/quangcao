@@ -3,6 +3,7 @@
 from odoo import fields, models, api
 from datetime import date
 from odoo.exceptions import UserError
+import num2words
 
 
 class Sale(models.Model):
@@ -19,6 +20,13 @@ class Sale(models.Model):
                                     string='Thanh toán tiền')
     payed_total = fields.Integer(string='Số tiền đã thanh toán', compute='compute_payed_total')
     amount_total_coppy = fields.Monetary(string='Tổng tiền', related='amount_total')
+    amount_2_text = fields.Char(string='Số tiền bằng chữ', readonly=True, compute='onchange_amount2text')
+
+    @api.onchange('order_line')
+    def onchange_amount2text(self):
+        for rec in self:
+            if rec.amount_total > 0:
+                rec.amount_2_text = num2words.num2words(rec.amount_total, lang='vi_VN').capitalize() + ' đồng'
 
     def compute_payed_total(self):
         for rec in self:

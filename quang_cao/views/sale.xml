@@ -37,7 +37,9 @@
                     <field name="state_payment" decoration-success="state_payment == '2'" decoration-danger="state_payment == '1'"/>
                     <field name="payed_total" decoration-success="payed_total == amount_total_coppy"/>
                     <field name="amount_total_coppy"/>
+                    <field name="amount_2_text"/>
                 </field>
+
 
             </field>
         </record>
