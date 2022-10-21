@@ -150,6 +150,7 @@ class TotalCong(models.Model):
 
 
     def total_default_get(self):
+        # lấy mới danh sách nhân viên
         employee = self.env['hr.employee'].search([('alow_cham_cong','=',True)], order='department_id')
         list_em = []
         for i in employee:
@@ -181,11 +182,12 @@ class TotalCong(models.Model):
 
     def compute_cong(self):
         for rec in self:
+            rec.total_default_get()
             rec.onchange_ung_luong()
             rec.compute_tong()
             tong_cong = {}
             tong_tangca = {}
-            for line in rec.list_cong.search([('state','=','1')]):
+            for line in rec.list_cong.search(['&',('ref_total_cong','=',self.id),('state','=','1')]):
                 for k in line.nhan_vien:
                     try:
                         tong_cong[k.employee_tp.id] += k.cong_trong_ngay
