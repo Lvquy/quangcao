@@ -17,7 +17,7 @@
                                 Ngày: <t t-esc="datetime.date.today()" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>
                             </h4>
                         </div>
-                        <div class="float-right">
+                        <div style="float:right">
                             <h4>
                                 Tiền tệ: VNĐ
                             </h4>
