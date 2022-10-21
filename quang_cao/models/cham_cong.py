@@ -130,7 +130,7 @@ class TotalCong(models.Model):
     total_luong = fields.Float(string='Tổng lương', compute='compute_tong')
     total_tien_tang_ca = fields.Float(string='Tổng tiền tăng ca', compute='compute_tong')
     total_gio_tang_ca = fields.Float(string='Tổng giờ tăng ca', compute='compute_tong')
-    total_cong = fields.Float(string='Tổng giờ tăng ca', compute='compute_tong')
+    total_cong = fields.Float(string='Tổng công', compute='compute_tong')
     doc_tien = fields.Char(string='Đọc tiền', compute='compute_tong')
 
     @api.onchange('nhan_vien')
@@ -145,7 +145,8 @@ class TotalCong(models.Model):
                 rec.total_tien_tang_ca += nv.tien_tang_ca
                 rec.total_gio_tang_ca += nv.total_tangca
                 rec.total_cong += nv.total_cong
-            rec.doc_tien = num2words(rec.total_luong,lang='vi_VN').capitalize() + ' đồng'
+            # rec.doc_tien = num2words(rec.total_luong, lang='vi_VN').capitalize() + ' đồng' or ''
+            rec.doc_tien = ' đồng'
 
 
 
