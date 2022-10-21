@@ -14,7 +14,12 @@
                         <h1 style="text-align:center; color:red">DANH SÁCH ĐƠN BÁN HÀNG TRỄ THANH TOÁN</h1>
                         <div class="col-12">
                             <h4>
-                                Ngày: <t t-esc="datetime.date.today()" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>, Tiền tệ: VNĐ
+                                Ngày: <t t-esc="datetime.date.today()" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>
+                            </h4>
+                        </div>
+                        <div class="float-right">
+                            <h4>
+                                Tiền tệ: VNĐ
                             </h4>
                         </div>
                         <div class="mb-2">
