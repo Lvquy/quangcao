@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
+import num2words
 
 from odoo import fields, models, api
 from datetime import date
 from odoo.exceptions import UserError
-from num2words import num2words
+from . import  num2text
 
 class ChamCong(models.Model):
     _name = 'cham.cong'
@@ -145,8 +146,10 @@ class TotalCong(models.Model):
                 rec.total_tien_tang_ca += nv.tien_tang_ca
                 rec.total_gio_tang_ca += nv.total_tangca
                 rec.total_cong += nv.total_cong
-            # rec.doc_tien = num2words(rec.total_luong, lang='vi_VN').capitalize() + ' đồng' or ''
-            rec.doc_tien = ' đồng'
+
+            if rec.total_luong > 0:
+                rec.doc_tien = num2words.num2words((rec.total_luong),lang='vi_VN').capitalize() + ' đồng'
+                # rec.doc_tien = num2text.docso(int(rec.total_luong)) + ' đồng'
 
 
 
