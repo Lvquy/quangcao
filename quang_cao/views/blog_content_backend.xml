@@ -7,7 +7,6 @@
             <field name="arch" type="xml">
                 <xpath expr="//sheet/notebook/page[@name='seo']" position="after">
                     <page name="content_backend" string="Content">
-                        <button name="test" type="object" string="Test"/>
                         <field name="content" options="{'codeview': true}"/>
                     </page>
                 </xpath>

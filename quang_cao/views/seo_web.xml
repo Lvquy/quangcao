@@ -71,6 +71,7 @@
                            decoration-danger="thu_hang &gt;= 20"/>
                     <field name="old_rank" optional="show"/>
                     <field name="date_update" optional="show"/>
+                    <field name="count_blog" optional="show"/>
                     <button name="view_blog" string="View blog" type="object" class="btn btn-primary"/>
                     <field name="target_domain" optional="show"/>
                     <field name="du_an" optional="show"/>

@@ -4,6 +4,7 @@ from odoo import fields, api, models
 from datetime import datetime
 import requests
 import urllib.parse as p
+import unidecode
 
 
 
@@ -84,9 +85,18 @@ class ListKeyword(models.Model):
     date_update = fields.Date(string='Ngày cập nhật')
     du_an = fields.Many2one(comodel_name='seo.web', string='Dự án')
     target_domain = fields.Char(string='Tên miền kiểm tra')
+    count_blog = fields.Integer(string='Số bài viết', compute='compute_count_blog')
+
+    def compute_count_blog(self):
+        for rec in self:
+            domain = ['|', ('website_meta_keywords', 'ilike', rec.name), (
+                'website_meta_keywords', 'ilike', unidecode.unidecode(rec.name))]
+            field_ids = rec.env['blog.post'].search_count(domain)
+            rec.count_blog = field_ids
+
 
     def view_blog(self,):
-        import unidecode
+
         # Xóa dấu unicode để so sánh
         field_ids = self.env['blog.post'].search(['|',('website_meta_keywords','ilike',self.name),('website_meta_keywords', 'ilike', unidecode.unidecode(self.name))]).ids
         domain = [('id', 'in', field_ids)]
@@ -119,9 +129,3 @@ class KeywordListLong(models.Model):
     name = fields.Char(string='Từ khóa')
     ranking = fields.Integer(string='Thứ hạng')
     ref_log_ranking = fields.Many2one(comodel_name='log.ranking', string='Log Keyword ranking')
-
-class BlogPost(models.Model):
-    _inherit = 'blog.post'
-
-    def test(self):
-        print(self.content)
