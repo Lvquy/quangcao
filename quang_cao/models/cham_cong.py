@@ -132,7 +132,7 @@ class TotalCong(models.Model):
     total_tien_tang_ca = fields.Float(string='Tổng tiền tăng ca', compute='compute_tong')
     total_gio_tang_ca = fields.Float(string='Tổng giờ tăng ca', compute='compute_tong')
     total_cong = fields.Float(string='Tổng công', compute='compute_tong')
-    doc_tien = fields.Char(string='Đọc tiền', compute='compute_tong')
+    doc_tien = fields.Char(string='Đọc tiền',compute='compute_tong')
 
     @api.onchange('nhan_vien')
     def compute_tong(self):
@@ -150,6 +150,8 @@ class TotalCong(models.Model):
             if rec.total_luong > 0:
                 rec.doc_tien = num2words.num2words((rec.total_luong),lang='vi_VN').capitalize() + ' đồng'
                 # rec.doc_tien = num2text.docso(int(rec.total_luong)) + ' đồng'
+            else:
+                rec.doc_tien = '0 đồng'
 
 
 
