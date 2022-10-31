@@ -46,4 +46,8 @@
             </div>
         </t>
     </template>
+
+    <template id="google" name="Confirm Google">
+        google-site-verification: google51aebbe99d6bf534.html
+    </template>
 </odoo>
