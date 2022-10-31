@@ -30,6 +30,6 @@ class QuangCao(http.Controller):
 
         return request.render('quang_cao.bang_gia_bien_quang_cao')
 
-    @http.route(['/google.html'], auth='public', website=True)
+    @http.route(['/google51aebbe99d6bf534.html'], auth='public', website=True)
     def google_search(self, **kw):
-        return request.render('quang_cao.google')
+        return request.render('quang_cao.google51aebbe99d6bf534')
