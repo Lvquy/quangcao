@@ -26,7 +26,7 @@ class ChamCong(models.Model):
     ]
 
     def reload_emp(self):
-        employee = self.env['hr.employee'].search([('department_id','!=',1)], order='department_id')
+        employee = self.env['hr.employee'].search(['&',('alow_cham_cong','=',True),('department_id','!=',1)], order='department_id')
         list_em = []
         for i in employee:
             list_em.append((0, 0, {'employee_tp': i.id}))
