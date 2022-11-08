@@ -7,7 +7,7 @@
                 <h2 class="text-center text-success font-weight-bold">BẢNG CHẤM CÔNG TRƯỜNG PHÁT
                 </h2>
                 <h2 class="text-center text-blue font-weight-bold">
-                    <span t-esc="doc.create_date.strftime('Ngày %d - Tháng %m - Năm %Y')"/>
+                    <span t-esc="doc.ngay_cong.strftime('Ngày %d - Tháng %m - Năm %Y')"/>
                 </h2>
                 <t>
                     <div>
