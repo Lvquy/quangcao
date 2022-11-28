@@ -35,7 +35,14 @@
                                 <field name="nhan_vien" attrs="{'readonly':[('state', 'in', ('1'))]}"/>
                             </page>
                             <page name="list_chamcong" string="Bảng công từng ngày trong tháng">
-                                <field name="list_cong" attrs="{'readonly':[('state', 'in', ('1'))]}"/>
+                                <field name="list_cong" attrs="{'readonly':[('state', 'in', ('1'))]}">
+                                    <tree delete="0" create="0">
+                                        <field name="ngay_cong"/>
+                                        <field name="tong_tangca"/>
+                                        <field name="total_employee"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
                             </page>
                             <page name="list_ungluong" string="Danh sách ứng lương tháng này">
                                 <field name="ung_luong" attrs="{'readonly':[('state', 'in', ('1'))]}"/>

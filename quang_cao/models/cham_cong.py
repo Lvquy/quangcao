@@ -26,7 +26,7 @@ class ChamCong(models.Model):
     ]
 
     def reload_emp(self):
-        employee = self.env['hr.employee'].search(['&',('alow_cham_cong','=',True),('department_id','!=',1)], order='department_id')
+        employee = self.env['hr.employee'].search([('alow_cham_cong','=',True)], order='department_id')
         list_em = []
         for i in employee:
             list_em.append((0, 0, {'employee_tp': i.id}))
@@ -72,6 +72,19 @@ class ChamCong(models.Model):
             rec.tong_tangca = 0
             for i in rec.nhan_vien:
                 rec.tong_tangca += i.tangca
+
+    def unlink(self):
+        for rec in self:
+            if rec.state == '1':
+                raise UserError('Không thể xoá khi đã xác nhận')
+            else:
+                return super(ChamCong,self).unlink()
+
+    def Set_Cong_2False(self):
+        for rec in self:
+            for i in rec.nhan_vien:
+                i.sang = False
+                i.chieu = False
 
 class LineNhanVien(models.Model):
     _name = 'line.nhanvien'
@@ -206,6 +219,13 @@ class TotalCong(models.Model):
                     i.total_cong = tong_cong.get(i.employee_tp.id)
                 if i.employee_tp.id in tong_tangca:
                     i.total_tangca = tong_tangca.get(i.employee_tp.id)
+
+    def unlink(self):
+        for rec in self:
+            if rec.state == '1':
+                raise UserError('Không thể xoá khi đã xác nhận')
+            else:
+                return super(TotalCong, self).unlink()
 
 
 class LineNhanVienTotal(models.Model):
