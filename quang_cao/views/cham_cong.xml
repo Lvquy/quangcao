@@ -10,7 +10,7 @@
                         <button name="confirm" string="Xác nhận" type="object" class="btn btn-primary" attrs="{'invisible':[('state', 'in', ('1'))]}"/>
                         <button name="cancel" string="Huỷ Xác nhận" type="object" class="btn btn-primary" attrs="{'invisible':[('state', 'in', ('0'))]}"/>
                         <button name="reload_emp" string="Làm lại bảng chấm công" type="object" class="btn btn-primary" attrs="{'invisible':[('state', 'in', ('1'))]}"/>
-                        <button name="Set_Cong_2False" string="Set 2 False" type="object" class="btn btn-primary" attrs="{'invisible':[('state', 'in', ('1'))]}"/>
+                        <button name="Set_Cong_2False" string="Set 2 False" type="object" confirm="Tất cả các công của mọi người thành False!" class="btn btn-primary" attrs="{'invisible':[('state', 'in', ('1'))]}"/>
                         <field name="state" widget="statusbar" statusbar_visible="0,1"/>
                     </header>
                     <sheet>
