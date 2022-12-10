@@ -19,6 +19,7 @@
         'security/ir.model.access.csv',
         # report
         'report/cham_cong.xml',
+        'report/tong_cong.xml',
         'report/menu_print.xml',
 
         # views
@@ -37,6 +38,7 @@
         'views/tong_cong.xml',
         'views/ung_luong.xml',
         'views/hr_employee.xml',
+        'views/search.xml',
     ],
 
     'assets': {

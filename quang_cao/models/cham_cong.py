@@ -16,9 +16,11 @@ class ChamCong(models.Model):
     state = fields.Selection([('0','Mới tạo'),('1','Đã xác nhận')],default='0', string='Trạng thái')
     nhan_vien = fields.One2many(comodel_name='line.nhanvien',inverse_name='ref_chamcong',string='Nhân viên')
     note = fields.Text(string='Ghi chú')
-    tong_tangca = fields.Float(string='Tổng thời gian tằng ca',digits=(12,1), compute='compute_total_tangca')
+    tong_tangca_ngay = fields.Float(string='Tổng tăng ca ngày',digits=(12,1), compute='compute_total_tangca')
+    tong_tangca_dem = fields.Float(string='Tổng tăng ca đêm',digits=(12,1), compute='compute_total_tangca')
     total_employee = fields.Integer(string='Tổng nhân sự', compute='compute_total_em')
-    ref_total_cong = fields.Many2one(comodel_name='total.cong', string='Ngày công trong tháng', domain=[('state','!=','1')])
+    total_cong = fields.Float(string='Tổng công', digits=(12,1), compute='compute_total_em')
+    ref_total_cong = fields.Many2one(comodel_name='total.cong',readonly=True, string='Thuộc tháng', domain=[('state','!=','1')])
     _sql_constraints = [
         ('ngay_cong_unique',
          'unique(ngay_cong)',
@@ -38,8 +40,10 @@ class ChamCong(models.Model):
     def compute_total_em(self):
         for rec in self:
             rec.total_employee = 0
+            rec.total_cong = 0
             for em in rec.nhan_vien:
                 rec.total_employee +=1
+                rec.total_cong += em.cong_trong_ngay
 
     def confirm(self):
         for rec in self:
@@ -69,9 +73,11 @@ class ChamCong(models.Model):
     @api.onchange('nhan_vien')
     def compute_total_tangca(self):
         for rec in self:
-            rec.tong_tangca = 0
+            rec.tong_tangca_ngay = 0
+            rec.tong_tangca_dem = 0
             for i in rec.nhan_vien:
-                rec.tong_tangca += i.tangca
+                rec.tong_tangca_ngay += i.tangca_ngay
+                rec.tong_tangca_dem += i.tangca_dem
 
     def unlink(self):
         for rec in self:
@@ -94,7 +100,8 @@ class LineNhanVien(models.Model):
     employee_tp = fields.Many2one(comodel_name='hr.employee', string='Nhân viên')
     sang = fields.Boolean(string='Sáng', default = True)
     chieu = fields.Boolean(string='Chiều', default = True)
-    tangca = fields.Float(string='Tăng ca (Giờ)',digits=(12,1))
+    tangca_ngay = fields.Float(string='Tăng ca ngày (Giờ)',digits=(12,1))
+    tangca_dem = fields.Float(string='Tăng ca đêm (Giờ)',digits=(12,1))
     note = fields.Text(string='Ghi chú')
     ref_chamcong = fields.Many2one(comodel_name='cham.cong', string='Ngày công')
     cong_trong_ngay = fields.Float(string='Công trong ngày',digits=(12,1), compute='compute_cong')
@@ -113,7 +120,7 @@ class TotalCong(models.Model):
     _name = 'total.cong'
     _rec_name = 'month'
     _description = 'Tổng hợp ngày công cuối tháng để tính lương'
-    _order = 'id desc'
+    _order = 'month desc'
 
     month = fields.Selection([
         ('0','Chọn tháng'),
@@ -141,31 +148,20 @@ class TotalCong(models.Model):
          'Đã tồn tại tháng này!')
     ]
     ung_luong = fields.One2many(comodel_name='ung.luong', inverse_name='ref_ung_luong')
-    total_luong = fields.Float(string='Tổng lương', compute='compute_tong')
-    total_tien_tang_ca = fields.Float(string='Tổng tiền tăng ca', compute='compute_tong')
-    total_gio_tang_ca = fields.Float(string='Tổng giờ tăng ca', compute='compute_tong')
+    total_gio_tang_ca_ngay = fields.Float(string='Tổng tăng ca ngày', compute='compute_tong')
+    total_gio_tang_ca_dem = fields.Float(string='Tổng tăng ca đêm', compute='compute_tong')
     total_cong = fields.Float(string='Tổng công', compute='compute_tong')
-    doc_tien = fields.Char(string='Đọc tiền',compute='compute_tong')
 
     @api.onchange('nhan_vien')
     def compute_tong(self):
         for rec in self:
-            rec.total_luong = 0
-            rec.total_tien_tang_ca = 0
-            rec.total_gio_tang_ca = 0
+            rec.total_gio_tang_ca_ngay = 0
+            rec.total_gio_tang_ca_dem = 0
             rec.total_cong = 0
             for nv in rec.nhan_vien:
-                rec.total_luong += nv.tong_luong
-                rec.total_tien_tang_ca += nv.tien_tang_ca
-                rec.total_gio_tang_ca += nv.total_tangca
+                rec.total_gio_tang_ca_ngay += nv.total_tangca_ngay
+                rec.total_gio_tang_ca_dem += nv.total_tangca_dem
                 rec.total_cong += nv.total_cong
-
-            if rec.total_luong > 0:
-                rec.doc_tien = num2words.num2words((rec.total_luong),lang='vi_VN').capitalize() + ' đồng'
-                # rec.doc_tien = num2text.docso(int(rec.total_luong)) + ' đồng'
-            else:
-                rec.doc_tien = '0 đồng'
-
 
 
     def total_default_get(self):
@@ -180,8 +176,7 @@ class TotalCong(models.Model):
     def confirm(self):
         for rec in self:
             rec.state = '1'
-            for i in rec.ung_luong:
-                i.status = True
+
 
     def cancel(self):
         self.state = '0'
@@ -203,22 +198,26 @@ class TotalCong(models.Model):
         for rec in self:
             rec.total_default_get()
             rec.onchange_ung_luong()
-            rec.compute_tong()
             tong_cong = {}
-            tong_tangca = {}
+            tong_tangca_ngay = {}
+            tong_tangca_dem = {}
             for line in rec.list_cong.search(['&',('ref_total_cong','=',self.id),('state','=','1')]):
                 for k in line.nhan_vien:
                     try:
                         tong_cong[k.employee_tp.id] += k.cong_trong_ngay
-                        tong_tangca[k.employee_tp.id] += k.tangca
+                        tong_tangca_ngay[k.employee_tp.id] += k.tangca_ngay
+                        tong_tangca_dem[k.employee_tp.id] += k.tangca_dem
                     except KeyError:
                         tong_cong[k.employee_tp.id] = k.cong_trong_ngay
-                        tong_tangca[k.employee_tp.id] = k.tangca
+                        tong_tangca_ngay[k.employee_tp.id] = k.tangca_ngay
+                        tong_tangca_dem[k.employee_tp.id] = k.tangca_dem
             for i in rec.nhan_vien:
                 if i.employee_tp.id in tong_cong:
                     i.total_cong = tong_cong.get(i.employee_tp.id)
-                if i.employee_tp.id in tong_tangca:
-                    i.total_tangca = tong_tangca.get(i.employee_tp.id)
+                if i.employee_tp.id in tong_tangca_ngay:
+                    i.total_tangca_ngay = tong_tangca_ngay.get(i.employee_tp.id)
+                if i.employee_tp.id in tong_tangca_dem:
+                    i.total_tangca_dem = tong_tangca_dem.get(i.employee_tp.id)
 
     def unlink(self):
         for rec in self:
@@ -236,16 +235,8 @@ class LineNhanVienTotal(models.Model):
     ref_total_cong = fields.Many2one(comodel_name='total.cong', string='Tổng công')
     employee_tp = fields.Many2one(comodel_name='hr.employee', string='Nhân viên')
     total_cong = fields.Float(string='Tổng công')
-    total_tangca = fields.Integer(string='Tổng tăng ca (Giờ)')
-    luong_1cong = fields.Float(string='Lương / 1 công', related='employee_tp.luong_1cong')
+    total_tangca_ngay = fields.Integer(string='Tổng tăng ca ngày(Giờ)')
+    total_tangca_dem = fields.Integer(string='Tổng tăng ca đêm(Giờ)')
     ung_luong = fields.Integer(string='Ứng trước')
-    tru_khac = fields.Float(string='Trừ tiền', help='Tiền trừ trong tháng vd: Trừ chuyên cần, làm mất thiết bị...')
-    tien_tang_ca = fields.Integer(string='Tiền tăng ca')
-    tong_luong = fields.Integer(string='Tổng lương', compute='compute_tong_luong')
+    tru_khac = fields.Float(string='Cộng / Trừ tiền', help='Cộng trừ tiền', store=True)
     note = fields.Text(string='Ghi chú')
-
-    @api.onchange('total_cong','luong_1cong','ung_luong','tru_khac','tien_tang_ca')
-    def compute_tong_luong(self):
-        for rec in self:
-            rec.tong_luong = rec.total_cong*rec.luong_1cong - rec.ung_luong - rec.tru_khac + rec.tien_tang_ca
-

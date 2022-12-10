@@ -8,8 +8,8 @@
             <field name="arch" type="xml">
                 <field name="coach_id" position="after">
                     <field name="alow_cham_cong"/>
-                    <field name="net_luong"/>
-                    <field name="luong_1cong"/>
+<!--                    <field name="net_luong"/>-->
+<!--                    <field name="luong_1cong"/>-->
                 </field>
 <!--                <field name="resoure_calendar_id" position="after">-->
 <!--                    <field name="net_luong"/>-->

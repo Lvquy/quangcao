@@ -5,7 +5,7 @@
             <field name="name">ung.luong.form</field>
             <field name="model">ung.luong</field>
             <field name="arch" type="xml">
-                <form string="Ứng lương" create="false" edit="false">
+                <form string="Ứng lương" create="false" >
                     <header>
                         <button name="confirm" string="Xác nhận" type="object" class="btn btn-primary" attrs="{'invisible':[('state', 'in', ('1'))]}"/>
                         <button name="cancel" string="Huỷ Xác nhận" type="object" class="btn btn-primary" attrs="{'invisible':[('state', 'in', ('0'))]}"/>
@@ -67,7 +67,7 @@
             </field>
         </record>
         <menuitem id="menu_sub_ung_luong" name="Ứng tiền" parent="menu_cham_cong" action="action_view_ung_luong"
-                  sequence="2" groups="base.group_system"/>
+                  sequence="2" groups="base.group_system,quang_cao.group_cham_cong"/>
     </data>
 </odoo>
 

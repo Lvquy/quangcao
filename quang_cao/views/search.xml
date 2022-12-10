@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    cham cong search-->
+    <record id="view_search_chamcong" model="ir.ui.view">
+        <field name="name">cham.cong.search</field>
+        <field name="model">cham.cong</field>
+        <field name="priority" eval="15"/>
+        <field name="arch" type="xml">
+            <search string="Search Cham Cong">
+                <field name="ngay_cong"/>
+                <field name="state"/>
+                <field name="ref_total_cong"/>
+                <filter string="Đã xác nhận" name="xacnhan" domain="[('state','=','1')]"/>
+                <filter string="Nháp" name="nhap" domain="[('state','=','0')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Ngày công" name="group_ngaycong" domain="[]" context="{'group_by': 'ngay_cong'}"/>
+                    <filter string="Trạng thái" name="trangthai" domain="[]" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!--    tổng công search-->
+    <record id="view_search_total_cong" model="ir.ui.view">
+        <field name="name">total.cong.search</field>
+        <field name="model">total.cong</field>
+        <field name="priority" eval="15"/>
+        <field name="arch" type="xml">
+            <search string="Search Tổng hợp cuối tháng">
+                <field name="ngay_tao"/>
+                <field name="state"/>
+                <filter string="Đã xác nhận" name="xacnhan" domain="[('state','=','1')]"/>
+                <filter string="Nháp" name="nhap" domain="[('state','=','0')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Trạng thái" name="trang_thai" domain="[]" context="{'group_by': 'state'}"/>
+                    <filter string="Ngày tạo" name="ngay_tao" domain="[]" context="{'group_by': 'ngay_tao'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <!--    ứng tiền search-->
+    <record id="view_search_ung_luong" model="ir.ui.view">
+        <field name="name">ung.luong.search</field>
+        <field name="model">ung.luong</field>
+        <field name="priority" eval="15"/>
+        <field name="arch" type="xml">
+            <search string="Search ứng lương">
+                <field name="ma_phieu"/>
+                <field name="ngay_ung"/>
+                <field name="nguoi_ung"/>
+                <field name="chung_tu"/>
+                <field name="so_tien"/>
+                <field name="type_ung"/>
+                <field name="state"/>
+                <field name="status"/>
+                <field name="ref_ung_luong"/>
+                <filter string="Đã xác nhận" name="xacnhan" domain="[('state','=','1')]"/>
+                <filter string="Nháp" name="nhap" domain="[('state','=','0')]"/>
+                <filter string="Đã trả đủ" name="datra" domain="[('status','=',True)]"/>
+                <filter string="Chưa trả đủ" name="chuatra" domain="[('status','=',False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Trạng thái" name="trang_thai" domain="[]" context="{'group_by': 'state'}"/>
+                    <filter string="Đã trả" name="status" domain="[]" context="{'group_by': 'status'}"/>
+                    <filter string="Ngày ứng" name="ngay_ung" domain="[]" context="{'group_by': 'ngay_ung'}"/>
+                    <filter string="Người ứng" name="nguoi_ung" domain="[]" context="{'group_by': 'nguoi_ung'}"/>
+                    <filter string="Kiểu ứng" name="kieu_ung" domain="[]" context="{'group_by': 'type_ung'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+</odoo>

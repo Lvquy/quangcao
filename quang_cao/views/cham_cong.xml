@@ -20,9 +20,16 @@
                             </h1>
                         </div>
                         <group>
-                            <field name="total_employee"/>
-                            <field name="tong_tangca"/>
-                            <field name="ref_total_cong" attrs="{'readonly':[('state', 'in', ('1'))]}"/>
+                            <group>
+                                <field name="ref_total_cong"/>
+                                <field name="total_employee"/>
+                                <field name="total_cong"/>
+                            </group>
+                            <group>
+                                <field name="tong_tangca_ngay"/>
+                                <field name="tong_tangca_dem"/>
+                            </group>
+
                         </group>
 
                         <notebook>
@@ -43,9 +50,12 @@
             <field name="arch" type="xml">
                 <tree string="Danh sách nhân viên" decoration-success="state == '1'">
                     <field name="ngay_cong" optional="show"/>
-                    <field name="tong_tangca" optional="show" decoration-warning="tong_tangca > 0" sum = "total"/>
                     <field name="total_employee" optional="show"/>
-                    <field name="note" optional="show"/>
+                    <field name="tong_tangca_ngay" optional="show" sum="Total"/>
+                    <field name="tong_tangca_dem" optional="show" sum="Total"/>
+                    <field name="total_cong" optional="show" sum="Total"/>
+                    <field name="total_employee" optional="show"/>
+                    <field name="note" optional="hide"/>
                     <field name="state" optional="show"/>
                 </tree>
             </field>
@@ -75,7 +85,8 @@
                             <field name="sang"/>
                             <field name="chieu"/>
                             <field name="cong_trong_ngay"/>
-                            <field name="tangca"/>
+                            <field name="tangca_ngay"/>
+                            <field name="tangca_dem"/>
                             <field name="note"/>
                         </group>
                     </sheet>
@@ -86,13 +97,14 @@
             <field name="name">line.nhanvien.tree</field>
             <field name="model">line.nhanvien</field>
             <field name="arch" type="xml">
-                <tree string="Line nhân viên" editable="bottom" decoration-warning="chieu == False or sang == False" decoration-bf="tangca > 0 " decoration-danger="sang == False and chieu == False">
+                <tree string="Line nhân viên" editable="bottom" decoration-warning="chieu == False or sang == False" decoration-bf="(tangca_ngay > 0 or tangca_dem > 0 )" decoration-danger="sang == False and chieu == False">
                     <field name="employee_tp"/>
                     <field name="sang" />
                     <field name="chieu" />
-                    <field name="cong_trong_ngay" />
-                    <field name="tangca" sum = "total"/>
-                    <field name="note"/>
+                    <field name="cong_trong_ngay" sum="total"/>
+                    <field name="tangca_ngay" sum = "total"/>
+                    <field name="tangca_dem" sum = "total"/>
+                    <field name="note" optional="show"/>
                 </tree>
             </field>
         </record>

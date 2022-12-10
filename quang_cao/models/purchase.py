@@ -36,16 +36,16 @@ class Purchase(models.Model):
                 l.state = '1'
 
     def _check_overdue(self):
-        print('Cron job check overdue')
+        # print('Cron job check overdue')
         today = date.today()
         Purchase = self.env['purchase.order'].search(['&',('overdue','!=',False),('state_payment','!=','2')])
         for i in Purchase:
             if today.day >= i.overdue.day and today.month >= i.overdue.month and today.year >= i.overdue.year:
                 i.state_payment = '1'
-                print('qua han')
+                # print('qua han')
             else:
                 i.state_payment = '0'
-                print('chua qua han')
+                # print('chua qua han')
 
     def get_pur_order_is_overdue_payment(self):
         for rec in self:
@@ -61,8 +61,8 @@ class Purchase(models.Model):
     def _send_email(self):
         Company = self.env['res.company'].search([])
         for e in Company.list_email:
-            print(e.partner_id.email)
-            print('conjob send mail')
+            # print(e.partner_id.email)
+            # print('conjob send mail')
             template_id = self.env.ref('quang_cao.mail_template_purchase_overdue_payment')
             template_id.email_to = e.partner_id.email
             template = self.env['mail.template'].browse(template_id.id)

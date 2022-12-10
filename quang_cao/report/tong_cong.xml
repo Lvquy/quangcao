@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_bang_cham_cong_cuoi_thang">
+        <t t-call="web.basic_layout">
+
+            <t t-foreach="docs" t-as="doc">
+                <h2 class="text-center text-success font-weight-bold">BẢNG CHẤM CÔNG TRƯỜNG PHÁT
+                </h2>
+                <h2 class="text-center text-blue font-weight-bold">
+                    <span t-esc="doc.ngay_tao.strftime('Tháng %m - Năm %Y')"/>
+                </h2>
+                <t>
+                    <div>
+                        <span>Tổng công:</span>
+                        <span t-field="doc.total_cong"/>
+                    </div>
+                    <div>
+                        <span>Tổng tăng ca ngày(Giờ):</span>
+                        <span t-field="doc.total_gio_tang_ca_ngay"/>
+                    </div>
+                    <div>
+                        <span>Tổng tăng ca đêm(Giờ):</span>
+                        <span t-field="doc.total_gio_tang_ca_dem"/>
+                    </div>
+                </t>
+                <table class="table table-sm table-striped">
+                    <thead >
+                        <tr class="text-center">
+                            <th scope="col">Ngày \ NV</th>
+                            <th t-foreach = "doc.nhan_vien" t-as ="emp">
+                                <td>
+                                    <t t-esc="emp.employee_tp.name"/>
+                                </td>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="doc.list_cong" t-as="day">
+                            <tr class="text-center">
+                                <th scope="row" class="text-center align-middle">
+                                    <t t-if="day.ngay_cong.strftime('%A') == 'Sunday'">
+                                        <span class="text-danger">
+                                            <t t-esc="day.ngay_cong" t-options='{"widget": "date","format": "dd"}'/> <br/>
+                                        </span>
+                                        <span class="text-danger">
+                                            <t t-esc="day.ngay_cong.strftime('%A')"/>
+                                        </span>
+                                    </t>
+                                    <t t-else="">
+                                        <span>
+                                            <t t-esc="day.ngay_cong" t-options='{"widget": "date","format": "dd"}'/>
+
+                                        </span> <br/>
+                                        <span>
+                                            <t t-esc="day.ngay_cong.strftime('%A')"/>
+                                        </span>
+                                    </t>
+                                </th>
+                                <th scope="row" class="align-middle" t-foreach = "day.nhan_vien" t-as ="emp">
+                                    <td class="align-left align-middle">
+                                        <t t-if="emp.cong_trong_ngay == 1.0">
+                                            <span class="text-success">HC: <t t-esc="emp.cong_trong_ngay"/></span> <br/>
+                                        </t>
+                                        <t t-if="emp.cong_trong_ngay == 0.5">
+                                            <span class="text-warning">HC: <t t-esc="emp.cong_trong_ngay"/></span> <br/>
+                                        </t>
+                                        <t t-if="emp.cong_trong_ngay == 0">
+                                            <span class="text-danger">HC: <t t-esc="emp.cong_trong_ngay"/></span> <br/>
+                                        </t>
+                                        <t t-if="emp.tangca_ngay > 0">
+                                            <span class="text-primary">TC.N: <t t-esc="emp.tangca_ngay"/></span> <br/>
+                                        </t>
+<!--                                        <t t-else="">-->
+<!--                                            <span class="font-weight-normal">TC.N: <t t-esc="emp.tangca_ngay"/></span> <br/>-->
+<!--                                        </t>-->
+                                        <t t-if="emp.tangca_dem > 0">
+                                            <span class="text-primary">TC.Đ: <t t-esc="emp.tangca_dem"/></span>
+                                        </t>
+<!--                                        <t t-else="">-->
+<!--                                            <span class="font-weight-normal">TC.Đ: <t t-esc="emp.tangca_dem"/></span>-->
+<!--                                        </t>-->
+                                    </td>
+                                </th>
+                            </tr>
+                        </t>
+
+                        <tr class="text-center text-info">
+                            <th scope="row" class="align-middle">Tổng</th>
+                            <th scope="row" class="align-middle" t-foreach="doc.nhan_vien" t-as="nv">
+                                <td>
+                                    <span>HC: <t t-esc="nv.total_cong"/></span><br/>
+                                    <span>TCN: <t t-esc="nv.total_tangca_ngay"/></span><br/>
+                                    <span>TCĐ: <t t-esc="nv.total_tangca_dem"/></span><br/>
+                                    <t t-if="nv.ung_luong >0">
+                                        <span>Ứng: <t t-esc="'{0:,.0f}'.format(int(nv.ung_luong))"/></span> <br/>
+                                    </t>
+                                    <t t-if="nv.tru_khac > 0">
+                                        Cộng: <span class="text-primary"><t t-esc="'{0:,.0f}'.format(int(nv.tru_khac))"/></span>
+                                    </t>
+                                    <t t-if="nv.tru_khac &lt; 0">
+                                        Trừ: <span class="text-danger"><t t-esc="'{0:,.0f}'.format(int(nv.tru_khac))"/></span>
+                                    </t>
+                                </td>
+                            </th>
+                            </tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-sm">
+                    <tr>
+                        <td width="70%" class="text-left">
+                            <span>Ghi chú:</span>
+                            <br/>
+                            <t t-esc="doc.note"/>
+                        </td>
+                        <td width="30%" class="text-center">
+                            <h4 class="text-right text-info" t-if="doc.state == '1'">
+                                Người lập bảng: <t t-esc="user.name"/>
+                                <img  src="/quang_cao/static/img/confirm.png" style="width:40%"/>
+                            </h4>
+                        </td>
+                    </tr>
+                </table>
+                <p style="page-break-before:always;"></p>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_tong_cong_action">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="quang_cao.report_bang_cham_cong_cuoi_thang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

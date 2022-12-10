@@ -11,12 +11,16 @@
                 </h2>
                 <t>
                     <div>
-                        <span>Tổng nhân sự:</span>
-                        <span t-field="doc.total_employee"/>
+                        <span class="text-success">Tổng nhân sự</span> / <span class="text-primary">Công: </span>
+                        <span class="text-success" t-field="doc.total_employee"/> /  <span class="text-primary" t-field="doc.total_cong"/>
                     </div>
                     <div>
-                        <span>Tổng thời gian tăng ca(Giờ):</span>
-                        <span t-field="doc.tong_tangca"/>
+                        <span>Tổng tăng ca ngày(Giờ):</span>
+                        <span t-field="doc.tong_tangca_ngay"/>
+                    </div>
+                    <div>
+                        <span>Tổng tăng ca đêm(Giờ):</span>
+                        <span t-field="doc.tong_tangca_dem"/>
                     </div>
                 </t>
                 <table class="table table-sm table-striped">
@@ -26,7 +30,8 @@
                             <th scope="col">Nhân viên</th>
                             <th scope="col">Sáng</th>
                             <th scope="col">Chiều</th>
-                            <th scope="col">Tăng ca</th>
+                            <th scope="col">Tăng ca ngày</th>
+                            <th scope="col">Tăng ca đêm</th>
                             <th scope="col">Ghi chú</th>
                         </tr>
                     </thead>
@@ -58,7 +63,10 @@
                                     </t>
                                 </td>
                                 <td class="align-middle">
-                                    <t t-esc="line.tangca"/>
+                                    <t t-esc="line.tangca_ngay"/>
+                                </td>
+                                <td class="align-middle">
+                                    <t t-esc="line.tangca_dem"/>
                                 </td>
                                 <td class="align-middle">
                                     <t t-esc="line.note"/>

@@ -38,3 +38,10 @@ class UngLuong(models.Model):
             if rec.state == '1':
                 rec.state = '0'
             else: raise UserError('Làm mới trình duyệt')
+
+    def unlink(self):
+        for rec in self:
+            if rec.state == '1':
+                raise UserError('Không thể xoá khi đã xác nhận')
+            else:
+                return super(UngLuong, self).unlink()
