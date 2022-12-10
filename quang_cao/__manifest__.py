@@ -20,6 +20,7 @@
         # report
         'report/cham_cong.xml',
         'report/tong_cong.xml',
+        'report/tong_cong_base.xml',
         'report/menu_print.xml',
 
         # views

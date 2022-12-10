@@ -13,11 +13,22 @@
         </record>
 
         <record id="action_report_tong_cong" model="ir.actions.report">
-            <field name="name">Tổng hợp cuối tháng</field>
+            <field name="name">Tổng hợp đầy đủ</field>
             <field name="model">total.cong</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">quang_cao.report_tong_cong_action</field>
             <field name="report_file">quang_cao.report_tong_cong_action</field>
+            <field name="print_report_name"> '%s' % (object.ngay_tao)</field>
+            <field name="binding_model_id" ref="model_total_cong"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_tong_cong_base" model="ir.actions.report">
+            <field name="name">Tổng hợp ngắn</field>
+            <field name="model">total.cong</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">quang_cao.report_tong_cong_base_action</field>
+            <field name="report_file">quang_cao.report_tong_cong_base_action</field>
             <field name="print_report_name"> '%s' % (object.ngay_tao)</field>
             <field name="binding_model_id" ref="model_total_cong"/>
             <field name="binding_type">report</field>
