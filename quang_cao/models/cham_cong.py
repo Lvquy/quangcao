@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-import num2words
+
 
 from odoo import fields, models, api
 from datetime import date
 from odoo.exceptions import UserError
-from . import  num2text
+
 
 class ChamCong(models.Model):
     _name = 'cham.cong'
