@@ -20,7 +20,7 @@ class ChamCong(models.Model):
     tong_tangca_dem = fields.Float(string='Tổng tăng ca đêm',digits=(12,1), compute='compute_total_tangca')
     total_employee = fields.Integer(string='Tổng nhân sự', compute='compute_total_em')
     total_cong = fields.Float(string='Tổng công', digits=(12,1), compute='compute_total_em')
-    ref_total_cong = fields.Many2one(comodel_name='total.cong',readonly=True, string='Thuộc tháng', domain=[('state','!=','1')])
+    ref_total_cong = fields.Many2one(comodel_name='total.cong', string='Thuộc tháng', domain=[('state','!=','1')])
     _sql_constraints = [
         ('ngay_cong_unique',
          'unique(ngay_cong)',
