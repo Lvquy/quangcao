@@ -40,7 +40,7 @@
             <field name="name">ung.luong.tree</field>
             <field name="model">ung.luong</field>
             <field name="arch" type="xml">
-                <tree string="Danh sách" create="false" decoration-success="status == True" >
+                <tree string="Danh sách"  decoration-success="status == True" >
                     <field name="ma_phieu" optional="show"/>
                     <field name="ngay_ung" optional="show"/>
                     <field name="ref_ung_luong" optional="hide"/>
