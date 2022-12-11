@@ -18,7 +18,7 @@ class UngLuong(models.Model):
     note = fields.Text(string='Lý do ứng')
     state = fields.Selection([('0','Nháp'),('1','Đã chuyển tiền',)],default='0', string='Trạng thái')
     status = fields.Boolean(string='Đã trả đủ', default=False)
-    ref_ung_luong = fields.Many2one(comodel_name='total.cong',requered=True, string='Ứng lương trong tháng', readonly=True)
+    ref_ung_luong = fields.Many2one(comodel_name='total.cong', string='Ứng lương trong tháng', readonly=True)
 
     @api.model
     def create(self, vals):
