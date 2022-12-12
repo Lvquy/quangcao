@@ -32,9 +32,12 @@ class UngLuong(models.Model):
             if rec.state == '0':
                 rec.state = '1'
             else: raise UserError('Làm mới trin duyệt')
-            print(rec.ref_ung_luong.id)
-            if rec.ref_ung_luong.id == False:
-                raise UserError('Không được tạo ở đây, vào tổng hợp cuối tháng chọn tab ứng lương để tạo')
+
+    def return_ung(self):
+        # đã trả đủ = true
+        for rec in self:
+            rec.status = True
+
 
     def cancel(self):
         for rec in self:

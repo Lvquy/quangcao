@@ -26,27 +26,24 @@
                 <table class="table table-sm table-striped">
                     <thead >
                         <tr class="text-center">
-                            <th>Nhân viên</th>
-                            <th>
-                                Tổng công
-                            </th>
-                            <th>
-                                Tăng ca ngày
-                            </th>
-                            <th>
-                                Tăng ca đêm
-                            </th>
-                            <th>
-                                Ứng trước
-                            </th>
-                            <th>
-                                Cộng trừ
-                            </th>
+                            <th><span>#</span></th>
+                            <th><span>Nhân viên</span></th>
+                            <th><span>Tổng công</span></th>
+                            <th><span>Tăng ca ngày</span></th>
+                            <th><span>Tăng ca đêm</span></th>
+                            <th><span>Ứng trước</span></th>
+                            <th><span>Cộng trừ</span></th>
                         </tr>
                     </thead>
                     <tbody>
+                        <t t-set="stt" t-value="1"/>
                         <t t-foreach="doc.nhan_vien" t-as="nv">
+
                             <tr class="text-center">
+                                <td>
+                                    <t t-esc="stt"/>
+                                    <t t-set="stt" t-value="stt+1"/>
+                                </td>
                                 <td>
                                     <t t-esc="nv.employee_tp.name"/>
                                 </td>
@@ -60,10 +57,10 @@
                                     <t t-esc="nv.total_tangca_dem"/>
                                 </td>
                                 <td>
-                                    <t t-esc="nv.ung_luong"/>
+                                    <t t-esc="'{0:,.0f}'.format(int(nv.ung_luong))"/>
                                 </td>
                                 <td>
-                                    <t t-esc="nv.tru_khac"/>
+                                    <t t-esc="'{0:,.0f}'.format(int(nv.tru_khac))"/>
                                 </td>
                             </tr>
                         </t>
