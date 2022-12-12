@@ -9,7 +9,7 @@
                     <header>
                         <button name="confirm" string="Xác nhận" type="object" class="btn btn-primary" attrs="{'invisible':[('state', 'in', ('1'))]}"/>
                         <button name="cancel" string="Huỷ Xác nhận" type="object" class="btn btn-primary" attrs="{'invisible':[('state', 'in', ('0'))]}"/>
-                        <button name="return_ung" string="Đã trả đủ" type="object" class="btn btn-primary" attrs="{'invisible':['|',('state','=','0'),('status', '=', True)]}"/>
+                        <button name="return_ung" string="XN trả đủ" type="object" class="btn btn-primary" attrs="{'invisible':['|',('state','=','0'),('status', '=', True)]}"/>
                         <field name="state" widget="statusbar" statusbar_visible="0,1"/>
                     </header>
                     <sheet>
@@ -52,7 +52,7 @@
                     <field name="note" optional="show"/>
                     <field name="status" optional="show"/>
                     <button name="confirm" string="Xác nhận" type="object" class="btn btn-primary" attrs="{'invisible':[('state', 'in', ('1'))]}"/>
-                    <button name="return_ung" string="Đã trả đủ" type="object" class="btn btn-primary" attrs="{'invisible':['|',('state','=','0'),('status', '=', True)]}"/>
+                    <button name="return_ung" string="XN trả đủ" type="object" class="btn btn-primary" attrs="{'invisible':['|',('state','=','0'),('status', '=', True)]}"/>
                     <field name="state" optional="show" decoration-info="state == '1'" decoration-danger="state == '0'"/>
                 </tree>
             </field>
