@@ -8,6 +8,7 @@ class UngLuong(models.Model):
     _name = 'ung.luong'
     _description = 'Ứng lưng nhân viên, chi tiêu vật tư'
     _rec_name = 'ma_phieu'
+    _order = 'ngay_ung desc'
 
     ma_phieu = fields.Char(string='Mã phiếu',readonly=True, default=lambda self: 'New')
     ngay_ung = fields.Date(string='Ngày ứng' , default=date.today())

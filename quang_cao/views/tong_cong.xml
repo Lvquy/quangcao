@@ -86,7 +86,7 @@
                 <form string="Line tổng công">
                     <sheet>
                         <group>
-                            <field name="employee_tp"/>
+                            <field name="employee_tp" options="{'no_quick_create': True, 'no_create' : True}"/>
                             <field name="total_cong"/>
                             <field name="total_tangca_ngay"/>
                             <field name="total_tangca_dem"/>
@@ -103,7 +103,7 @@
             <field name="model">line.nhanvien.total</field>
             <field name="arch" type="xml">
                 <tree string="Line nhân viên" editable="bottom" >
-                    <field name="employee_tp"/>
+                    <field name="employee_tp" options="{'no_quick_create': True, 'no_create' : True}"/>
                     <field name="total_cong" sum = "Total"/>
                     <field name="total_tangca_ngay" sum="Total" optional="show"/>
                     <field name="total_tangca_dem" sum="Total" optional="show"/>

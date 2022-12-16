@@ -22,7 +22,8 @@
                             <field name="ngay_ung" attrs="{'readonly':[('state', 'in', ('1'))]}"/>
                             <field name="ref_ung_luong"/>
                             <field name="type_ung" attrs="{'readonly':[('state', 'in', ('1'))]}"/>
-                            <field name="nguoi_ung" attrs="{'readonly':[('state', 'in', ('1'))]}"/>
+                            <field name="nguoi_ung" attrs="{'readonly':[('state', 'in', ('1'))]}"
+                                   options="{'no_quick_create': True, 'no_create' : True}"/>
                             <field name="chung_tu" attrs="{'readonly':[('state', 'in', ('1'))]}"/>
                             <field name="so_tien" attrs="{'readonly':[('state', 'in', ('1'))]}"/>
                         </group>
