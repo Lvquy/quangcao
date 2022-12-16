@@ -183,7 +183,7 @@ class TotalCong(models.Model):
 
     def onchange_ung_luong(self):
         for rec in self:
-            ung_luong = rec.ung_luong.search(['&',('type_ung','=','luong'), ('status', '=', False), ('state', '=', '1')])
+            ung_luong = rec.ung_luong.search(['&',('ref_ung_luong','=',rec.id),('type_ung','=','luong'), ('status', '=', False), ('state', '=', '1')])
             tien_ung = {}
             for i in ung_luong:
                 try:
