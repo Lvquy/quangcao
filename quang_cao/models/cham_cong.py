@@ -166,7 +166,7 @@ class TotalCong(models.Model):
 
     def total_default_get(self):
         # lấy mới danh sách nhân viên
-        employee = self.env['hr.employee'].search([('alow_cham_cong','=',True)], order='department_id')
+        employee = self.env['hr.employee'].search([('alow_cham_cong','=',True)], order='id')
         list_em = []
         for i in employee:
             list_em.append((0, 0, {'employee_tp': i.id}))
@@ -231,12 +231,13 @@ class LineNhanVienTotal(models.Model):
     _name = 'line.nhanvien.total'
     _rec_name = 'employee_tp'
     _description = 'List Employee'
+    _order = 'id desc'
 
     ref_total_cong = fields.Many2one(comodel_name='total.cong', string='Tổng công')
     employee_tp = fields.Many2one(comodel_name='hr.employee', string='Nhân viên')
     total_cong = fields.Float(string='Tổng công')
-    total_tangca_ngay = fields.Integer(string='Tổng tăng ca ngày(Giờ)')
-    total_tangca_dem = fields.Integer(string='Tổng tăng ca đêm(Giờ)')
+    total_tangca_ngay = fields.Float(string='Tổng tăng ca ngày(Giờ)')
+    total_tangca_dem = fields.Float(string='Tổng tăng ca đêm(Giờ)')
     ung_luong = fields.Integer(string='Ứng trước')
     tru_khac = fields.Float(string='Cộng / Trừ tiền', help='Cộng trừ tiền', store=True)
     note = fields.Text(string='Ghi chú')

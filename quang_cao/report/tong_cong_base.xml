@@ -37,7 +37,7 @@
                     </thead>
                     <tbody>
                         <t t-set="stt" t-value="1"/>
-                        <t t-foreach="doc.nhan_vien" t-as="nv">
+                        <t t-foreach="doc.nhan_vien.sorted(key=lambda r: r.id)" t-as="nv">
 
                             <tr class="text-center">
                                 <td>
