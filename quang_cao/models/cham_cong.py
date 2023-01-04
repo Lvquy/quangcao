@@ -28,7 +28,7 @@ class ChamCong(models.Model):
     ]
 
     def reload_emp(self):
-        employee = self.env['hr.employee'].search([('alow_cham_cong','=',True)], order='department_id')
+        employee = self.env['hr.employee'].search([('alow_cham_cong','=',True)], order='id')
         list_em = []
         for i in employee:
             list_em.append((0, 0, {'employee_tp': i.id}))
@@ -58,7 +58,7 @@ class ChamCong(models.Model):
 
     @api.model
     def default_get(self, fields):
-        employee = self.env['hr.employee'].search([('alow_cham_cong','=',True)],order ='department_id')
+        employee = self.env['hr.employee'].search([('alow_cham_cong','=',True)],order ='id')
         list_em = []
         ngay_trong_thang = self.env['total.cong'].search(['&',('state','!=','1'),('month','=',str(date.today().month))],limit=1)
 
