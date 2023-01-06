@@ -166,7 +166,7 @@ class TotalCong(models.Model):
 
     def total_default_get(self):
         # lấy mới danh sách nhân viên
-        employee = self.env['hr.employee'].search([('alow_cham_cong','=',True)], order='id desc')
+        employee = self.env['hr.employee'].search([('alow_cham_cong','=',True)], order='id ASC')
         list_em = []
         for i in employee:
             list_em.append((0, 0, {'employee_tp': i.id}))
