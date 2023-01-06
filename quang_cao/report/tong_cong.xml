@@ -27,7 +27,7 @@
                     <thead >
                         <tr class="text-center">
                             <th scope="col">Ngày \ NV</th>
-                            <th t-foreach = "doc.nhan_vien.sorted(key=lambda r ,reverse=reverse: r.id)" t-as ="emp">
+                            <th t-foreach = "doc.nhan_vien.sorted(key=lambda r: r.id, reverse=reverse)" t-as ="emp">
                                 <td>
                                     <t t-esc="emp.employee_tp.name"/>
                                 </td>
