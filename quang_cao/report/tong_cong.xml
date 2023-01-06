@@ -56,7 +56,7 @@
                                         </span>
                                     </t>
                                 </th>
-                                <th scope="row" class="align-middle" t-foreach = "day.nhan_vien.sorted(key=lambda r: r.id)" t-as ="emp">
+                                <th scope="row" class="align-middle" t-foreach = "day.nhan_vien)" t-as ="emp">
                                     <td class="align-left align-middle">
                                         <t t-if="emp.cong_trong_ngay == 1.0">
                                             <span class="text-success">HC: <t t-esc="emp.cong_trong_ngay"/></span> <br/>
